@@ -225,13 +225,55 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2023/12/01/useRef/" target="_self">
+        <a href="/2023/06/21/useImperativeHandle/" target="_self">
+          useImperativeHandle和
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/21/useImperativeHandle/" target="_self">
+        <div>
+          useImperativeHandle 和 ref 转发useImperativeHandle 可以让你在使用 ref 时自定义暴露给父组件的实例值，应当与 forwardRef 一起使用，实现 ref 转发 我们获取类组件实例后，可以直接调用实例上的方法！ 123456789101112131415161718192021import React, &#123; useEffect, useRe
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-21 14:27" pubdate>
+              2023-06-21
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">#react</a>
+            
+              <a href="/tags/useImperativeHandle/">#useImperativeHandle</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/06/19/useRef/" target="_self">
           useRef深层剖析
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/12/01/useRef/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/19/useRef/" target="_self">
         <div>
           useRefref 使用场景通常，当你的组件需要“跳出” React 并与外部 API 通信时，你会用到 ref —— 通常是不会影响组件外观的浏览器 API。以下是这些罕见情况中的几个：  存储 timeout ID 存储和操作 DOM 元素，涉及非受控组件。赋值给标签，目的是获取 DOM 元素；赋值给类组件，目的是获取组件的实例； 存储不需要被用来计算 JSX 的其他对象。  如果你的组件需要
         </div>
@@ -241,8 +283,92 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2023-12-01 00:00" pubdate>
-              2023-12-01
+            <time datetime="2023-06-19 14:27" pubdate>
+              2023-06-19
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">#react</a>
+            
+              <a href="/tags/hooks/">#hooks</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/06/17/useLayoutEffect/" target="_self">
+          useLayoutEffect深层剖析
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/17/useLayoutEffect/" target="_self">
+        <div>
+          useLayoutEffect使用useLayoutEffect 函数签名与 useEffect 相同，但它会在所有的 DOM 变更之后同步调用 effect。 可以使用它来读取 DOM 布局并同步触发重渲染。 在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。 尽可能使用标准的 useLayoutEffect 以避免阻塞视觉更新。 1234567891011121
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-17 14:27" pubdate>
+              2023-06-17
+            </time>
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react/">#react</a>
+            
+              <a href="/tags/useLayoutEffect/">#useLayoutEffect</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2023/06/01/Hooks%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B/" target="_self">
+          react hooks简介
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/01/Hooks%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B/" target="_self">
+        <div>
+          React 组件回顾函数组件特点 不具备“状态、ref、周期函数”等内容，第一次渲染完毕后，无法基于组件内部的操作来控制其更新，因此称之为静态组件！ 但是具备属性及插槽，父组件可以控制其重新渲染！ 渲染流程简单，渲染速度较快！ 基于 FP（函数式编程）思想设计，提供更细粒度的逻辑组织和复用！ 纯函数组件，无法改状态  类组件特点 具备“状态、ref、周期函数、属性、插槽”等内容，可以灵活的控制组件
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-06-01 11:13" pubdate>
+              2023-06-01
             </time>
           </div>
         
