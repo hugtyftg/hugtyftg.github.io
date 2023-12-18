@@ -32,10 +32,11 @@
 <meta property="og:image" content="https://hugtyftg.github.io/img/react/useState/image-20230616150504612.png">
 <meta property="og:image" content="https://hugtyftg.github.io/img/react/useState/6.png">
 <meta property="og:image" content="https://hugtyftg.github.io/img/react/useState/7.png">
-<meta property="article:published_time" content="2023-06-14T04:59:35.000Z">
-<meta property="article:modified_time" content="2023-12-18T12:38:18.396Z">
+<meta property="article:published_time" content="2023-06-14T06:59:35.000Z">
+<meta property="article:modified_time" content="2023-12-18T12:41:10.445Z">
 <meta property="article:author" content="mmy@hugtyftg">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="useState">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://hugtyftg.github.io/img/react/useState/useState%E7%9A%84%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6.jpg">
   
@@ -218,7 +219,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-06-14 12:59" pubdate>
+        <time datetime="2023-06-14 14:59" pubdate>
           2023年6月14日 下午
         </time>
       </span>
@@ -325,13 +326,9 @@
 <p>① 遇到 setState 会立即将其放入到<strong>更新队列</strong>中，此时状态和视图还都未更新</p>
 <p>②<strong>当所有的代码操作结束</strong>，会刷新队列，也就是通知更新队列中的所有任务执行：把<strong>所有放入的 setState 合并在一起执行，只触发一次状态更新和视图更新</strong></p>
 <ul>
-<li><p><strong>React 18 全部采用批更新</strong></p>
-</li>
-<li><p><strong>React 16 中也和 this.setState 一样，只在合成事件&#x2F;生命周期函数中异步，在定时器、手动 DOM 事件绑定等操作中同步</strong></p>
-<p><code>&lt;img src=&quot;/img/react/useState/image-20230616122123869.png&quot; alt=&quot;image-20230616122123869&quot; style=&quot;zoom:50%;&quot; /&gt;</code></p>
-</li>
-<li><p><strong>可以基于 flushSync 刷新渲染队列</strong></p>
-</li>
+<li><strong>React 18 全部采用批更新</strong></li>
+<li><strong>React 16 中也和 this.setState 一样，只在合成事件&#x2F;生命周期函数中异步，在定时器、手动 DOM 事件绑定等操作中同步</strong></li>
+<li><strong>可以基于 flushSync 刷新渲染队列</strong></li>
 </ul>
 <p><img src="/%60/img/react/useState/image-20230616122123869.png%60" srcset="/img/loading.gif" lazyload alt="img"></p>
 <h4 id="检验方式一-在-handler-里面修改-state-之后直接-log-❌"><a href="#检验方式一-在-handler-里面修改-state-之后直接-log-❌" class="headerlink" title="检验方式一:在 handler 里面修改 state 之后直接 log ❌"></a>检验方式一:在 handler 里面修改 state 之后直接 log ❌</h4><p><strong>不能在 handler 里面修改 state 之后直接 log，因为这时 log 的变量仍然是上一次闭包中的，无论同步还是异步更新，都只能是上一个闭包中的值</strong></p>
@@ -392,6 +389,43 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/react/" class="category-chain-item">react</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/react/hooks/" class="category-chain-item">hooks</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/react/" class="print-no-link">#react</a>
+      
+        <a href="/tags/useState/" class="print-no-link">#useState</a>
+      
+    </div>
   
 </div>
 
