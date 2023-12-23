@@ -24,7 +24,7 @@
 <meta property="og:description" content="useLayoutEffect使用useLayoutEffect 函数签名与 useEffect 相同，但它会在所有的 DOM 变更之后同步调用 effect。 可以使用它来读取 DOM 布局并同步触发重渲染。 在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。 尽可能使用标准的 useLayoutEffect 以避免阻塞视觉更新。 1234567891011121">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-17T06:27:00.000Z">
-<meta property="article:modified_time" content="2023-12-23T14:16:06.302Z">
+<meta property="article:modified_time" content="2023-12-23T14:25:18.948Z">
 <meta property="article:author" content="mmy@hugtyftg">
 <meta property="article:tag" content="react">
 <meta property="article:tag" content="useLayoutEffect">
@@ -225,6 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
+          <!-- compatible with older versions-->
           727 字
         
       </span>
@@ -236,12 +237,21 @@
         
         
         
+          <!-- compatible with older versions-->
           7 分钟
         
       </span>
     
 
     
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -521,6 +531,31 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
   
   
 </div>
@@ -666,6 +701,8 @@
   <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
 
 

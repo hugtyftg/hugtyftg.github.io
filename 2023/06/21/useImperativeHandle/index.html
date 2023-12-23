@@ -24,7 +24,7 @@
 <meta property="og:description" content="useImperativeHandle 和 ref 转发useImperativeHandle 可以让你在使用 ref 时自定义暴露给父组件的实例值，应当与 forwardRef 一起使用，实现 ref 转发 我们获取类组件实例后，可以直接调用实例上的方法！ 123456789101112131415161718192021import React, &#123; useEffect, useRe">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-06-21T06:27:00.000Z">
-<meta property="article:modified_time" content="2023-12-23T14:16:00.069Z">
+<meta property="article:modified_time" content="2023-12-23T14:25:14.249Z">
 <meta property="article:author" content="mmy@hugtyftg">
 <meta property="article:tag" content="react">
 <meta property="article:tag" content="useImperativeHandle">
@@ -225,6 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
+          <!-- compatible with older versions-->
           308 字
         
       </span>
@@ -236,12 +237,21 @@
         
         
         
+          <!-- compatible with older versions-->
           3 分钟
         
       </span>
     
 
     
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
     
   </div>
 
@@ -498,6 +508,31 @@
     </div>
   
   
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
   
   
 </div>
@@ -643,6 +678,8 @@
   <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
+
+  <script defer src="/js/leancloud.js" ></script>
 
 
 
