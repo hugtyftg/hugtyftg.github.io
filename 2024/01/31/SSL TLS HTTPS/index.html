@@ -16,22 +16,22 @@
   <meta name="author" content="mmy@hugtyftg">
   <meta name="keywords" content="blog">
   
-    <meta name="description" content="ubuntu 12apt-get nginxcd etc&#x2F;nginx&#x2F;sites-available&#x2F;default  123location &#x2F;api &#123;	proxy_pass http:&#x2F;&#x2F;server_ip:server_port;&#125;">
+    <meta name="description" content="HTTPS &#x3D; http + TLS&#x2F;SSLHTTPS，全称为 Hypertext Transfer Protocol Secure，是一种通过加密通道传输数据的安全协议。它是 HTTP 协议的安全版本，用于在 Web 浏览器和 Web 服务器之间进行安全的数据传输。HTTPS 在传输过程中使用了 SSL（Secure Sockets Layer）或 TLS（Transport">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决跨域——运维端nginx">
-<meta property="og:url" content="https://hugtyftg.github.io/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E8%BF%90%E7%BB%B4%E7%AB%AFnginx/index.html">
+<meta property="og:title" content="SSL TLS HTTPS">
+<meta property="og:url" content="https://hugtyftg.github.io/2024/01/31/SSL%20TLS%20HTTPS/index.html">
 <meta property="og:site_name" content="积微">
-<meta property="og:description" content="ubuntu 12apt-get nginxcd etc&#x2F;nginx&#x2F;sites-available&#x2F;default  123location &#x2F;api &#123;	proxy_pass http:&#x2F;&#x2F;server_ip:server_port;&#125;">
+<meta property="og:description" content="HTTPS &#x3D; http + TLS&#x2F;SSLHTTPS，全称为 Hypertext Transfer Protocol Secure，是一种通过加密通道传输数据的安全协议。它是 HTTP 协议的安全版本，用于在 Web 浏览器和 Web 服务器之间进行安全的数据传输。HTTPS 在传输过程中使用了 SSL（Secure Sockets Layer）或 TLS（Transport">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-28T08:01:52.000Z">
-<meta property="article:modified_time" content="2024-02-02T13:28:19.026Z">
+<meta property="article:published_time" content="2024-01-31T07:10:16.000Z">
+<meta property="article:modified_time" content="2024-02-02T13:46:50.928Z">
 <meta property="article:author" content="mmy@hugtyftg">
-<meta property="article:tag" content="CORS">
+<meta property="article:tag" content="网络协议">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>解决跨域——运维端nginx - 积微</title>
+  <title>SSL TLS HTTPS - 积微</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="解决跨域——运维端nginx"></span>
+            <span id="subtitle" data-typed-text="SSL TLS HTTPS"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-28 16:01" pubdate>
-          2024年1月28日 下午
+        <time datetime="2024-01-31 15:10" pubdate>
+          2024年1月31日 下午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          12 字
+          1.6k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          1 分钟
+          14 分钟
         
       </span>
     
@@ -268,15 +268,86 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">解决跨域——运维端nginx</h1>
+            <h1 id="seo-header">SSL TLS HTTPS</h1>
             
             
               <div class="markdown-body">
                 
-                <p>ubuntu</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">apt-get nginx<br>cd etc/nginx/sites-available/<span class="hljs-keyword">default</span><br></code></pre></td></tr></table></figure>
+                <h2 id="HTTPS-http-TLS-SSL"><a href="#HTTPS-http-TLS-SSL" class="headerlink" title="HTTPS &#x3D; http + TLS&#x2F;SSL"></a>HTTPS &#x3D; http + TLS&#x2F;SSL</h2><p><strong>HTTPS，全称为 Hypertext Transfer Protocol Secure</strong>，是一种通过加密通道传输数据的安全协议。它是 <strong>HTTP 协议的安全版本，用于在 Web 浏览器和 Web 服务器之间进行安全的数据传输</strong>。HTTPS 在传输过程中使用了 SSL（Secure Sockets Layer）或 TLS（Transport Layer Security）协议来加密数据，确保敏感信息在传输过程中不会被窃取或篡改。</p>
+<p><strong>注意：https 默认监听端口 443 http 默认监听端口 80</strong></p>
+<h3 id="http-缺点"><a href="#http-缺点" class="headerlink" title="http 缺点"></a>http 缺点</h3><ol>
+<li><strong>信息不加密：通信使用明文(不加密)，内容可能会被盗用</strong></li>
+<li><strong>无身份校验：不验证通信方的身份，因此有可能遭遇伪装</strong></li>
+<li><strong>无完整性验证：无法证明报文的完整性，所以有可能已遭篡改</strong></li>
+</ol>
+<h3 id="https-优点"><a href="#https-优点" class="headerlink" title="https 优点"></a>https 优点</h3><ol>
+<li><p><strong>信息加密</strong></p>
+</li>
+<li><p><strong>身份验证</strong></p>
+</li>
+<li><p><strong>完整性校验</strong></p>
+</li>
+</ol>
+<h2 id="TLS-SSL"><a href="#TLS-SSL" class="headerlink" title="TLS SSL"></a>TLS SSL</h2><p>TLS（Transport Layer Security）和 SSL（Secure Sockets Layer）是用于保护网络通信的安全协议。它们都提供了<strong>加密和认证机制</strong>，用于确保数据传输的机密性和完整性。</p>
+<p><strong>SSL 是最早的安全协议，而 TLS 是在 SSL 的基础上发展起来的。</strong>目前广泛使用的版本是 TLS 1.2 和 TLS 1.3。TLS 1.3 是最新的协议版本，在安全性、性能和功能方面有一些改进。</p>
+<p>TLS 和 SSL 主要用于以下两个方面：</p>
+<ol>
+<li><strong>加密通信</strong>：TLS&#x2F;SSL 使用加密算法来对数据进行加密，防止第三方截获和窃听通信内容。它可以确保数据在传输过程中的隐私性。</li>
+<li><strong>身份认证</strong>：TLS&#x2F;SSL 还提供了身份验证机制，用于确认通信双方的身份，并确保数据只发送到正确的接收方。这可以防止恶意用户冒充其他用户或服务器。</li>
+</ol>
+<p><strong>SSL 是最早的用来做 https 的，TLS 是 SSL 升级版。二者工作原理类似，但 TLS 提高了安全性，并解决了 SSL 存在的一些安全性问题和性能问题。</strong></p>
+<h2 id="在-TCP-IP-四层模型中，TLS-SSL-在哪一层加密？"><a href="#在-TCP-IP-四层模型中，TLS-SSL-在哪一层加密？" class="headerlink" title="在 TCP&#x2F;IP 四层模型中，TLS SSL 在哪一层加密？"></a>在 TCP&#x2F;IP 四层模型中，TLS SSL 在哪一层加密？</h2><p>在应用层下、在传输层上，可以理解为“安全层”</p>
+<h2 id="加密算法"><a href="#加密算法" class="headerlink" title="加密算法"></a>加密算法</h2><h3 id="对称加密-共有密钥"><a href="#对称加密-共有密钥" class="headerlink" title="对称加密 共有密钥"></a>对称加密 共有密钥</h3><p>常见的算法有 AES DES 加密</p>
+<p>举例 <code>麒麟</code>-&gt;<code>星月</code>发消息 但是他们的消息不想被别人知道，采用了对称加密，于是他们两个协商了一段密钥，<code>今生永相随</code></p>
+<p>麒麟：<code>AES算法 + 密钥（今生永相随）+明文（吃面） = XMZSXMZS==</code></p>
+<p>星月：<code>使用AES + 密钥（今生永相随）+密文（ XMZSXMZS==） = 吃面</code></p>
+<h3 id="非对称加密-一人分别一个公私钥"><a href="#非对称加密-一人分别一个公私钥" class="headerlink" title="非对称加密 一人分别一个公私钥"></a>非对称加密 一人分别一个公私钥</h3><p>常见算法有 RSA DSA 加密</p>
+<p>举例 <code>麒麟</code>-&gt;<code>星月</code>发消息，这次使用的是非对称加密，生成了公钥和私钥，公钥可以对外公开，私钥必须只能<code>麒麟</code>知道不能泄露。</p>
+<p>星月：RSA + 公钥 + 明文（吃面） &#x3D; XMZS&#x3D;&#x3D;</p>
+<p>麒麟：RSA + 私钥 + 密文（XMZS&#x3D;&#x3D;） &#x3D; 吃面</p>
+<h3 id="散列函数"><a href="#散列函数" class="headerlink" title="散列函数"></a>散列函数</h3><h2 id="TLS-融合了对称加密、非对称加密以及散列函数实现加密，保证安全性"><a href="#TLS-融合了对称加密、非对称加密以及散列函数实现加密，保证安全性" class="headerlink" title="TLS 融合了对称加密、非对称加密以及散列函数实现加密，保证安全性"></a>TLS 融合了对称加密、非对称加密以及散列函数实现加密，保证安全性</h2><h2 id="TLS-证书"><a href="#TLS-证书" class="headerlink" title="TLS 证书"></a>TLS 证书</h2><p>在 SSL&#x2F;TLS 加密通信中，一般需要使用三个文件来完成证书相关操作，即：</p>
+<ol>
+<li><strong>私钥文件（例如 “private-key.pem”）</strong>，用于对加密数据进行解密操作。</li>
+<li><strong>证书签名请求文件（例如 “certificate.csr”）</strong>，用于向 CA 申请 SSL&#x2F;TLS 证书签名。</li>
+<li><strong>SSL&#x2F;TLS 证书文件（例如 “certificate.pem”）</strong>，用于对客户端发送的请求进行验证，以确保通信安全可靠。</li>
+</ol>
+<p>私钥文件用于对数据进行解密操作，保证了通信的机密性；证书签名请求文件包含了请求者的身份信息和公钥等信息，需要被发送给 CA 进行签名，从而获取有效的 SSL&#x2F;TLS 证书；SSL&#x2F;TLS 证书文件则包含了签名后的证书信息，被用于客户端和服务器之间的身份验证，以确保通信的安全性和可靠性。</p>
+<p>通过使用这三个文件进行密钥交换和身份验证，SSL&#x2F;TLS 可以实现加密通信以及抵御可能的中间人攻击，提高了通信的安全性和保密性。</p>
+<h2 id="openssl-生成加密证书"><a href="#openssl-生成加密证书" class="headerlink" title="openssl 生成加密证书"></a>openssl 生成加密证书</h2><h3 id="生成-private-key-pem-文件"><a href="#生成-private-key-pem-文件" class="headerlink" title="生成 private-key.pem 文件"></a>生成 private-key.pem 文件</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">openssl genpkey -algorithm RSA -<span class="hljs-keyword">out</span> <span class="hljs-keyword">private</span>-key.pem -aes256<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">location</span> <span class="hljs-title">/api</span> &#123;<br>	proxy_pass http://server_ip:server_port;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>openssl: OpenSSL 命令行工具的名称。</p>
+<p>genpkey: 生成私钥的命令。</p>
+<p>-algorithm RSA: 指定生成 RSA 私钥。</p>
+<p>-out private-key.pem: 将生成的私钥保存为 private-key.pem 文件。</p>
+<p>-aes256: 为私钥添加 AES 256 位加密，以保护私钥文件不被未经授权的人访问。</p>
+<p>Enter PEM pass phrase 密码短语生成 pem 文件的时候需要 123123</p>
+<h3 id="生成-certificate-csr-文件"><a href="#生成-certificate-csr-文件" class="headerlink" title="生成 certificate.csr 文件"></a>生成 certificate.csr 文件</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs processing">openssl req -<span class="hljs-keyword">new</span> -<span class="hljs-built_in">key</span> <span class="hljs-keyword">private</span>-<span class="hljs-built_in">key</span>.<span class="hljs-property">pem</span> -out certificate.<span class="hljs-property">csr</span><br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>“req”: 表示使用 X.509 证书请求管理器 (Certificate Request Management) 功能模块。</li>
+<li>“-new”: 表示生成新的证书签名请求。</li>
+<li>“-key private-key.pem”: 表示使用指定的私钥文件 “private-key.pem” 来加密证书签名请求中的密钥对。</li>
+<li>“-out certificate.csr”: 表示输出生成的证书签名请求到文件 “certificate.csr” 中。该文件中包含了申请者提供的一些证书请求信息，例如公钥、授权主体的身份信息等。</li>
+</ol>
+<p>Country Name (2 letter code) []:CN 国家</p>
+<p>State or Province Name (full name) []:BJ 省份</p>
+<p>Locality Name (eg, city) []:BJ 城市</p>
+<p>Organization Name (eg, company)ZMY 组织或者是个人</p>
+<p>Organizational Unit Name (eg, section) []:XMKJ 机构名称</p>
+<p>Common Name (eg, fully qualified host name) []:localhost 域名</p>
+<p>Email Address []: 邮箱地址</p>
+<p>Please enter the following ‘extra’ attributes</p>
+<p>to be sent with your certificate request</p>
+<p>A challenge password []: 密码加严 mmymmy</p>
+<h3 id="生成-certificate-pem-文件"><a href="#生成-certificate-pem-文件" class="headerlink" title="生成 certificate.pem 文件"></a>生成 certificate.pem 文件</h3><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">openssl x509 -req -<span class="hljs-keyword">in</span> certificate.csr -signkey <span class="hljs-keyword">private</span>-key.pem -<span class="hljs-keyword">out</span> certificate.pem<br></code></pre></td></tr></table></figure>
+
+<p>“x509”: 表示使用 X.509 证书管理器功能模块。</p>
+<p>“-req”: 表示从输入文件（这里为 “certificate.csr”）中读取证书签名请求数据。</p>
+<p>“-in certificate.csr”: 指定要读取的证书签名请求文件名。</p>
+<p>“-signkey private-key.pem”: 指定使用指定的私钥文件 “private-key.pem” 来进行签名操作。一般情况下，签名证书的私钥应该是和之前生成 CSR 的私钥对应的。</p>
+<p>“-out certificate.pem”: 表示将签名后的证书输出到文件 “certificate.pem” 中。该文件中包含了签名后的证书信息，包括签名算法、有效期、公钥、授权主体的身份信息等。</p>
+<p>Enter pass phrase for private-key.pem: 密码短语</p>
+<h3 id="nodejs-接口测试-https"><a href="#nodejs-接口测试-https" class="headerlink" title="nodejs 接口测试 https"></a>nodejs 接口测试 https</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">import</span> https <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;node:https&#x27;</span>;<br><span class="hljs-keyword">import</span> fs <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;<br><span class="hljs-regexp">//</span> https默认监听端口<span class="hljs-number">443</span> http默认监听端口<span class="hljs-number">80</span><br>https<br>  .createServer(<br>    &#123;<br>      key: fs.readFileSync(<span class="hljs-string">&#x27;./private-key.pem&#x27;</span>),<br>      cert: fs.readFileSync(<span class="hljs-string">&#x27;./certificate.pem&#x27;</span>),<br>      passphrase: <span class="hljs-string">&#x27;123456&#x27;</span>,<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-params">(req, res)</span> =&gt;</span> &#123;<br>      res.writeHead(<span class="hljs-number">200</span>);<br>      res.end(<span class="hljs-string">&#x27;success&#x27;</span>);<br>    &#125;<br>  )<br>  .listen(<span class="hljs-number">443</span>, <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>    console.log(<span class="hljs-string">&#x27;server is runnig&#x27;</span>);<br>  &#125;);<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -310,7 +381,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/CORS/" class="print-no-link">#CORS</a>
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" class="print-no-link">#网络协议</a>
       
     </div>
   
@@ -322,8 +393,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>解决跨域——运维端nginx</div>
-      <div>https://hugtyftg.github.io/2024/01/28/解决跨域——运维端nginx/</div>
+      <div>SSL TLS HTTPS</div>
+      <div>https://hugtyftg.github.io/2024/01/31/SSL TLS HTTPS/</div>
     </div>
     <div class="license-meta">
       
@@ -335,7 +406,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月28日</div>
+          <div>2024年1月31日</div>
         </div>
       
       
@@ -367,9 +438,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/29/ajax%20xml%20fetch/" title="ajax xml fetch">
+                      <a href="/2024/02/01/JWT/" title="JWT（鉴权）">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ajax xml fetch</span>
+                        <span class="hidden-mobile">JWT（鉴权）</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -377,8 +448,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%89%8D%E5%90%8E%E7%AB%AF%E5%8D%8F%E5%95%86jsonp/" title="解决跨域——前后端协商jsonp">
-                        <span class="hidden-mobile">解决跨域——前后端协商jsonp</span>
+                      <a href="/2024/01/30/navigator.sendBeacon/" title="navigator.sendBeacon">
+                        <span class="hidden-mobile">navigator.sendBeacon</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

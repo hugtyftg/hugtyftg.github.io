@@ -16,22 +16,22 @@
   <meta name="author" content="mmy@hugtyftg">
   <meta name="keywords" content="blog">
   
-    <meta name="description" content="👋 Hi，很高兴可以在这里和你跨时空对话。 🌟 我是一名充满热爱和斗志的前端新人，这些随笔是我在学习和实践过程中的经验总结，希望可以为你带来帮助。 🎉 期待交流碰撞思维火花（不仅限于计算机科学，文学以及自然科学如材料化学均可） 📮 &#x31;&#x35;&#50;&#50;&#x34;&#x39;&#x32;&#52;&#56;&#x32;&#x32;&#x40;&#49;&#54;&amp;#">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于">
-<meta property="og:url" content="https://hugtyftg.github.io/about/index.html">
+    <meta name="description" content="TCP 协议是传输层协议，有端口概念，可以基于此实现应用层 HTTP 报文收发 123456789101112131415161718192021222324&#x2F;&#x2F; 基于传输层的TCP协议实现应用层HTTPimport net from &#x27;net&#x27;;const statusLine &#x3D; &#x27;HTTP&#x2F;1.1 200 OK&#x27;;const resBody &#x3D; &amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TCP实现HTTP服务">
+<meta property="og:url" content="https://hugtyftg.github.io/2024/02/02/TCP%E5%AE%9E%E7%8E%B0HTTP%E6%9C%8D%E5%8A%A1/index.html">
 <meta property="og:site_name" content="积微">
-<meta property="og:description" content="👋 Hi，很高兴可以在这里和你跨时空对话。 🌟 我是一名充满热爱和斗志的前端新人，这些随笔是我在学习和实践过程中的经验总结，希望可以为你带来帮助。 🎉 期待交流碰撞思维火花（不仅限于计算机科学，文学以及自然科学如材料化学均可） 📮 &#x31;&#x35;&#50;&#50;&#x34;&#x39;&#x32;&#52;&#56;&#x32;&#x32;&#x40;&#49;&#54;&amp;#">
+<meta property="og:description" content="TCP 协议是传输层协议，有端口概念，可以基于此实现应用层 HTTP 报文收发 123456789101112131415161718192021222324&#x2F;&#x2F; 基于传输层的TCP协议实现应用层HTTPimport net from &#x27;net&#x27;;const statusLine &#x3D; &#x27;HTTP&#x2F;1.1 200 OK&#x27;;const resBody &#x3D; &amp;#x">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-21T10:21:38.948Z">
-<meta property="article:modified_time" content="2024-01-21T10:21:38.948Z">
+<meta property="article:published_time" content="2024-02-02T14:10:56.000Z">
+<meta property="article:modified_time" content="2024-02-02T13:53:21.884Z">
 <meta property="article:author" content="mmy@hugtyftg">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="网络协议">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>关于 - 积微</title>
+  <title>TCP实现HTTP服务 - 积微</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -91,7 +91,7 @@
   <header>
     
 
-<div class="header-inner" style="height: 60vh;">
+<div class="header-inner" style="height: 70vh;">
   <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -191,15 +191,55 @@
   
 
 <div id="banner" class="banner" parallax=true
-     style="background: url('/img/bg/bg2.png') no-repeat center center; background-size: cover;">
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
   <div class="full-bg-img">
     <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="关于"></span>
+            <span id="subtitle" data-typed-text="TCP实现HTTP服务"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-02 22:10" pubdate>
+          2024年2月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          161 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          2 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
 
         
       </div>
@@ -215,78 +255,157 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div id="board"
-          >
-          
-            <div class="about-avatar">
-              <img src="/img/profile.png" srcset="/img/loading.gif" lazyload class="img-fluid" alt="avatar">
-            </div>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
+      
 
-<div class="text-center">
-  <div class="about-info">
-    <div class="about-name">mmy@hugtyftg</div>
-    <div class="about-intro">一个懂一些炼金术的前端技术爱好者</div>
-    <div class="about-icons">
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
       
-        
-        
-        
-        <a href=https://github.com/hugtyftg class="
-           hint--bottom hint--rounded"
-           aria-label=GitHub
-           target="_blank"
-        >
-          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
-          
-        </a>
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">TCP实现HTTP服务</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>TCP 协议是传输层协议，有端口概念，可以基于此实现应用层 HTTP 报文收发</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 基于传输层的TCP协议实现应用层HTTP</span><br><span class="hljs-keyword">import</span> net <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;net&#x27;</span>;<br><span class="hljs-keyword">const</span> statusLine = <span class="hljs-string">&#x27;HTTP/1.1 200 OK&#x27;</span>;<br><span class="hljs-keyword">const</span> resBody = <span class="hljs-string">&#x27;&lt;h1&gt;20240202&lt;/h1&gt;&#x27;</span>;<br><span class="hljs-keyword">const</span> resHeader = [<br>  <span class="hljs-string">&#x27;Content-Type: text/html&#x27;</span>,<br>  <span class="hljs-string">`Content-Length: <span class="hljs-subst">$&#123;resBody.length&#125;</span>`</span>,<br>  <span class="hljs-string">`Date: <span class="hljs-subst">$&#123;<span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toUTCString()&#125;</span>`</span>,<br>];<br><span class="hljs-comment">// HTTP响应报文结构</span><br><span class="hljs-comment">// 状态行 响应头 空行 响应体</span><br><span class="hljs-keyword">const</span> res = [statusLine, ...resHeader, <span class="hljs-string">&#x27;&#x27;</span>, resBody].<span class="hljs-title function_">join</span>(<span class="hljs-string">&#x27;\r\n&#x27;</span>);<br><span class="hljs-keyword">const</span> tcp = net.<span class="hljs-title function_">createServer</span>(<span class="hljs-function">(<span class="hljs-params">socket</span>) =&gt;</span> &#123;<br>  <span class="hljs-comment">// 接收到数据的时候会自动调用</span><br>  socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;data&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-regexp">/GET/</span>.<span class="hljs-title function_">test</span>(data.<span class="hljs-title function_">toString</span>())) &#123;<br>      socket.<span class="hljs-title function_">write</span>(res);<br>    &#125;<br>  &#125;);<br>&#125;);<br><br>tcp.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;server is running at http://localhost:3000&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
       
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
         
-        
-        
-        <a  class="qr-trigger
-           "
-           
-           target="_self"
-        >
-          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
-          
-            <img class="qr-img" src="/img/wechat.png" srcset="/img/loading.gif" lazyload alt="qrcode" />
-          
-        </a>
+  <a href="/categories/computer-network/" class="category-chain-item">computer network</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
       
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" class="print-no-link">#网络协议</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>TCP实现HTTP服务</div>
+      <div>https://hugtyftg.github.io/2024/02/02/TCP实现HTTP服务/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>mmy@hugtyftg</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/02/XSS%E8%B7%A8%E7%AB%99%E8%84%9A%E6%9C%AC%E6%94%BB%E5%87%BB/" title="XSS跨站脚本攻击">
+                        <span class="hidden-mobile">XSS跨站脚本攻击</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
     </div>
   </div>
 </div>
 
-<article class="about-content page-content mt-5">
-  <div class="markdown-body">
-    <p>👋 Hi，很高兴可以在这里和你跨时空对话。</p>
-<p>🌟 我是一名充满热爱和斗志的前端新人，这些随笔是我在学习和实践过程中的经验总结，希望可以为你带来帮助。</p>
-<p>🎉 期待交流碰撞思维火花（不仅限于计算机科学，文学以及自然科学如材料化学均可）</p>
-<p>📮 <a href="mailto:&#x31;&#x35;&#50;&#50;&#x34;&#x39;&#x32;&#52;&#56;&#x32;&#x32;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#x6f;&#109;">&#x31;&#x35;&#50;&#50;&#x34;&#x39;&#x32;&#52;&#56;&#x32;&#x32;&#x40;&#49;&#54;&#51;&#x2e;&#99;&#x6f;&#109;</a></p>
-<p>🏫 CSU</p>
-
-  </div>
-
-  
-    <!-- Comments -->
-    <article id="comments" lazyload>
-      
-      
-        
-      
-      
-
-    </article>
-  
-</article>
-
 
 
 
@@ -313,11 +432,8 @@
 
 
 
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
+
     
 
     
@@ -410,6 +526,46 @@
   
 
 
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
 
 
   <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
