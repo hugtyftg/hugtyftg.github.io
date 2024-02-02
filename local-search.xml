@@ -15,6 +15,8 @@
       
       <category>computer network</category>
       
+      <category>网络协议</category>
+      
     </categories>
     
     
@@ -39,6 +41,8 @@
     <categories>
       
       <category>computer network</category>
+      
+      <category>网络安全</category>
       
     </categories>
     
@@ -65,6 +69,8 @@
       
       <category>computer network</category>
       
+      <category>网络状态</category>
+      
     </categories>
     
     
@@ -89,6 +95,8 @@
     <categories>
       
       <category>computer network</category>
+      
+      <category>身份验证</category>
       
     </categories>
     
@@ -115,6 +123,8 @@
       
       <category>computer network</category>
       
+      <category>网络协议</category>
+      
     </categories>
     
     
@@ -139,6 +149,8 @@
     <categories>
       
       <category>computer network</category>
+      
+      <category>客户端服务端通讯技术</category>
       
     </categories>
     
@@ -165,6 +177,8 @@
       
       <category>computer network</category>
       
+      <category>客户端服务端通讯技术</category>
+      
     </categories>
     
     
@@ -189,6 +203,8 @@
     <categories>
       
       <category>computer network</category>
+      
+      <category>客户端服务端通讯技术</category>
       
     </categories>
     
@@ -215,6 +231,8 @@
       
       <category>computer network</category>
       
+      <category>客户端服务端通讯技术</category>
+      
     </categories>
     
     
@@ -240,10 +258,14 @@
       
       <category>computer network</category>
       
+      <category>CORS</category>
+      
     </categories>
     
     
     <tags>
+      
+      <tag>computer network</tag>
       
       <tag>CORS</tag>
       
@@ -265,10 +287,14 @@
       
       <category>computer network</category>
       
+      <category>CORS</category>
+      
     </categories>
     
     
     <tags>
+      
+      <tag>computer network</tag>
       
       <tag>CORS</tag>
       
@@ -290,10 +316,14 @@
       
       <category>computer network</category>
       
+      <category>CORS</category>
+      
     </categories>
     
     
     <tags>
+      
+      <tag>computer network</tag>
       
       <tag>CORS</tag>
       
@@ -315,10 +345,14 @@
       
       <category>computer network</category>
       
+      <category>CORS</category>
+      
     </categories>
     
     
     <tags>
+      
+      <tag>computer network</tag>
       
       <tag>CORS</tag>
       
@@ -340,10 +374,14 @@
       
       <category>computer network</category>
       
+      <category>CORS</category>
+      
     </categories>
     
     
     <tags>
+      
+      <tag>computer network</tag>
       
       <tag>CORS</tag>
       
@@ -364,6 +402,8 @@
     <categories>
       
       <category>computer network</category>
+      
+      <category>CDN</category>
       
     </categories>
     
@@ -390,6 +430,8 @@
       
       <category>computer network</category>
       
+      <category>browser</category>
+      
     </categories>
     
     
@@ -414,6 +456,8 @@
     <categories>
       
       <category>computer network</category>
+      
+      <category>网络协议</category>
       
     </categories>
     
