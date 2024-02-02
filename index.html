@@ -227,15 +227,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2024/01/27/CDN/" target="_self">
-          CDN内容分发网络简介
+        <a href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E8%BF%90%E7%BB%B4%E7%AB%AFnginx/" target="_self">
+          解决跨域——运维端nginx
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/27/CDN/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E8%BF%90%E7%BB%B4%E7%AB%AFnginx/" target="_self">
         <div>
-          CDN Content Delivery NetworkCDN 是用来优化网络资源请求的时间的 优化资源访问速度请求资源的速度和资源所在的服务器与我们的地理距离有关，如果距离过远，资源从服务器发送到我们这里所需时间就会很久。 为了解决这一问题，可以构建一个内容分发网络 CDN，请求资源的时候会优先询问距离我们较近的服务器有没有该资源，如果没有，较近的服务器再向上层层查找，直到找到我们要访问的资源所
+          ubuntu 12apt-get nginxcd etc/nginx/sites-available/default  123location /api &#123;	proxy_pass http://server_ip:server_port;&#125;
         </div>
       </a>
 
@@ -243,8 +243,8 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2024-01-27 19:29" pubdate>
-              2024-01-27
+            <time datetime="2024-01-28 16:01" pubdate>
+              2024-01-28
             </time>
           </div>
         
@@ -274,7 +274,190 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/CDN/">#CDN</a>
+              <a href="/tags/CORS/">#CORS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%89%8D%E5%90%8E%E7%AB%AF%E5%8D%8F%E5%95%86jsonp/" target="_self">
+          解决跨域——前后端协商jsonp
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%89%8D%E5%90%8E%E7%AB%AF%E5%8D%8F%E5%95%86jsonp/" target="_self">
+        <div>
+          JSONP 原理1.什么是 JSONPJSONP（JavaScript with padding）是 JSON 的一种“使用方式”，可用于解决主流浏览器的跨域数据访问问题。 2.JSONP 原理由于浏览器同源策略的限制，网页中无法通过 Ajax 请求非同源的接口数据。但是&lt;script&gt;标签不受浏览器同源策略的影响，所以可以通过 src 属性，请求非同源的 js 脚本。 因此，JSON
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-28 14:20" pubdate>
+              2024-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/computer-network/" class="category-chain-item">computer network</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CORS/">#CORS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%90%8E%E7%AB%AFCORS/" target="_self">
+          解决跨域——后端CORS
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%90%8E%E7%AB%AFCORS/" target="_self">
+        <div>
+          什么是 CORSCross origin resource sharing，跨域资源共享，主要出现在两种情况下：  前后端分离的开发模式下（separation of front and back stage），前后端服务运行在不同的 domain，前端请求后端数据属于 CORS  前端请求第三方不同 domain 的数据资源   CORS 分类默认情况下的跨域请求过程主要分为两类：第一类是安全请
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-28 13:37" pubdate>
+              2024-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/computer-network/" class="category-chain-item">computer network</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CORS/">#CORS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%90%86/" target="_self">
+          解决跨域——前端代理
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/28/%E8%A7%A3%E5%86%B3%E8%B7%A8%E5%9F%9F%E2%80%94%E2%80%94%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%90%86/" target="_self">
+        <div>
+          仅能在开发环境下配合 webpack、vite、rollup 等前端构建打包工具使用。 注意：生产环境需要配合 nginx 代理 12前端 5173端口后端 3000端口  1234567891011121314151617181920&lt;!DOCTYPE html&gt;&lt;html lang=&quot;en&quot;&gt;  &lt;head&gt;    &lt;meta ch
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-28 10:33" pubdate>
+              2024-01-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/computer-network/" class="category-chain-item">computer network</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CORS/">#CORS</a>
             
           </div>
         
@@ -336,6 +519,67 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/same-origin-policy/">#same origin policy</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/26/CDN/" target="_self">
+          CDN内容分发网络简介
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/26/CDN/" target="_self">
+        <div>
+          CDN Content Delivery NetworkCDN 是用来优化网络资源请求的时间的 优化资源访问速度请求资源的速度和资源所在的服务器与我们的地理距离有关，如果距离过远，资源从服务器发送到我们这里所需时间就会很久。 为了解决这一问题，可以构建一个内容分发网络 CDN，请求资源的时候会优先询问距离我们较近的服务器有没有该资源，如果没有，较近的服务器再向上层层查找，直到找到我们要访问的资源所
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-26 19:29" pubdate>
+              2024-01-26
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/computer-network/" class="category-chain-item">computer network</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CDN/">#CDN</a>
             
           </div>
         
@@ -605,293 +849,13 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/06/19/useRef/" target="_self">
-          useRef深层剖析
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/19/useRef/" target="_self">
-        <div>
-          useRefref 使用场景通常，当你的组件需要“跳出” React 并与外部 API 通信时，你会用到 ref —— 通常是不会影响组件外观的浏览器 API。以下是这些罕见情况中的几个：  存储 timeout ID 存储和操作 DOM 元素，涉及非受控组件。赋值给标签，目的是获取 DOM 元素；赋值给类组件，目的是获取组件的实例； 存储不需要被用来计算 JSX 的其他对象。  如果你的组件需要
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-19 14:27" pubdate>
-              2023-06-19
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/react/" class="category-chain-item">react</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/react/hooks/" class="category-chain-item">hooks</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/react/">#react</a>
-            
-              <a href="/tags/useRef/">#useRef</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/06/17/useLayoutEffect/" target="_self">
-          useLayoutEffect深层剖析
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/17/useLayoutEffect/" target="_self">
-        <div>
-          useLayoutEffect使用useLayoutEffect 函数签名与 useEffect 相同，但它会在所有的 DOM 变更之后同步调用 effect。 可以使用它来读取 DOM 布局并同步触发重渲染。 在浏览器执行绘制之前，useLayoutEffect 内部的更新计划将被同步刷新。 尽可能使用标准的 useLayoutEffect 以避免阻塞视觉更新。 1234567891011121
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-17 14:27" pubdate>
-              2023-06-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/react/" class="category-chain-item">react</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/react/hooks/" class="category-chain-item">hooks</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/react/">#react</a>
-            
-              <a href="/tags/useLayoutEffect/">#useLayoutEffect</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/06/14/useState/" target="_self">
-          useState深层剖析
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2023/06/14/useState/" target="_self">
-        <div>
-          useState作用：在函数组件中使用状态，修改状态值可让函数组件更新，类似于类组件中的 setState 语法： const [state, setState] &#x3D; useState(initialState); 返回一个 state，以及更新 state 的函数 seXXX(value)修改状态值为 value，并通知视图更新。注意，不同于类组件 setState 的部分更新语法，而
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-14 14:59" pubdate>
-              2023-06-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/react/" class="category-chain-item">react</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/react/hooks/" class="category-chain-item">hooks</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/react/">#react</a>
-            
-              <a href="/tags/useState/">#useState</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2023/06/01/Hooks%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B/" target="_self">
-          <img src="/img/react_index.png" srcset="/img/loading.gif" lazyload alt="react hooks简介">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h2 class="index-header">
-        
-        <a href="/2023/06/01/Hooks%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B/" target="_self">
-          react hooks简介
-        </a>
-      </h2>
-
-      
-      <a class="index-excerpt " href="/2023/06/01/Hooks%E7%BB%84%E4%BB%B6%E7%AE%80%E4%BB%8B/" target="_self">
-        <div>
-          React 组件回顾函数组件特点 不具备“状态、ref、周期函数”等内容，第一次渲染完毕后，无法基于组件内部的操作来控制其更新，因此称之为静态组件！ 但是具备属性及插槽，父组件可以控制其重新渲染！ 渲染流程简单，渲染速度较快！ 基于 FP（函数式编程）思想设计，提供更细粒度的逻辑组织和复用！ 纯函数组件，无法改状态  类组件特点 具备“状态、ref、周期函数、属性、插槽”等内容，可以灵活的控制组件
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-06-01 11:13" pubdate>
-              2023-06-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/react/" class="category-chain-item">react</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/react/hooks/" class="category-chain-item">hooks</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/react/">#react</a>
-            
-              <a href="/tags/hooks/">#hooks</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
 
 
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/#board">2</a><a class="extend next" rel="next" href="/page/2/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
 
 
 
