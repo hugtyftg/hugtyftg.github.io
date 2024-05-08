@@ -16,12 +16,12 @@
   <meta name="author" content="mmy@hugtyftg">
   <meta name="keywords" content="blog">
   
-    <meta name="description" content="简介mongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。 本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。 mongoDB核心概念数据库常规概念回顾每个database由多张table组成，每张table的构成如下：">
+    <meta name="description" content="简介MongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。 本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。 mongoDB核心概念数据库常规概念回顾每个database由多张table组成，每张table的构成如下：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="积微">
+<meta property="og:title" content="MongoDB">
 <meta property="og:url" content="https://hugtyftg.github.io/2024/05/08/MongoDB%E5%88%9D%E6%8E%A2/index.html">
 <meta property="og:site_name" content="积微">
-<meta property="og:description" content="简介mongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。 本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。 mongoDB核心概念数据库常规概念回顾每个database由多张table组成，每张table的构成如下：">
+<meta property="og:description" content="简介MongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。 本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。 mongoDB核心概念数据库常规概念回顾每个database由多张table组成，每张table的构成如下：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/image-20240508171015259.png">
 <meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/document-store-100893897-large.jpg">
@@ -29,16 +29,16 @@
 <meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/crud-annotated-collection.bakedsvg.svg">
 <meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/mongodb-data-structure.png">
 <meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/JSON_Example_Python_MongoDB-mzqqz0keng.png">
-<meta property="article:published_time" content="2024-05-08T11:21:35.920Z">
-<meta property="article:modified_time" content="2024-05-08T11:23:43.113Z">
+<meta property="article:published_time" content="2024-05-08T11:27:51.000Z">
+<meta property="article:modified_time" content="2024-05-08T11:26:30.220Z">
 <meta property="article:author" content="mmy@hugtyftg">
-<meta property="article:tag" content="blog">
+<meta property="article:tag" content="MongoDB">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://hugtyftg.github.io/img/database/mongoDB/image-20240508171015259.png">
   
   
   
-  <title>积微</title>
+  <title>MongoDB - 积微</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -204,7 +204,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="MongoDB"></span>
           
         </div>
 
@@ -215,7 +215,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-05-08 19:21" pubdate>
+        <time datetime="2024-05-08 19:27" pubdate>
           2024年5月8日 晚上
         </time>
       </span>
@@ -275,12 +275,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header"></h1>
+            <h1 id="seo-header">MongoDB</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>mongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。</p>
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>MongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。</p>
 <p>本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。</p>
 <h1 id="mongoDB核心概念"><a href="#mongoDB核心概念" class="headerlink" title="mongoDB核心概念"></a>mongoDB核心概念</h1><h2 id="数据库常规概念回顾"><a href="#数据库常规概念回顾" class="headerlink" title="数据库常规概念回顾"></a>数据库常规概念回顾</h2><p>每个database由多张table组成，每张table的构成如下：</p>
 <p><img src="/img/database/mongoDB/image-20240508171015259.png" srcset="/img/loading.gif" lazyload alt="image-20240508171015259"></p>
@@ -336,6 +336,48 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/database/" class="category-chain-item">database</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/database/MongoDB/" class="category-chain-item">MongoDB</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/database/MongoDB/NoSQL/" class="category-chain-item">NoSQL</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MongoDB/" class="print-no-link">#MongoDB</a>
+      
+    </div>
   
 </div>
 
@@ -345,7 +387,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
+      <div>MongoDB</div>
       <div>https://hugtyftg.github.io/2024/05/08/MongoDB初探/</div>
     </div>
     <div class="license-meta">
