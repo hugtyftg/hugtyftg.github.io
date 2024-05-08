@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="mmy@hugtyftg">
+  <meta name="keywords" content="blog">
+  
+    <meta name="description" content="简介mongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。 本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。 mongoDB核心概念数据库常规概念回顾每个database由多张table组成，每张table的构成如下：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="积微">
+<meta property="og:url" content="https://hugtyftg.github.io/2024/05/08/MongoDB%E5%88%9D%E6%8E%A2/index.html">
+<meta property="og:site_name" content="积微">
+<meta property="og:description" content="简介mongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。 本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。 mongoDB核心概念数据库常规概念回顾每个database由多张table组成，每张table的构成如下：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/image-20240508171015259.png">
+<meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/document-store-100893897-large.jpg">
+<meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/mongodb-collection-vs-document.jpg">
+<meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/crud-annotated-collection.bakedsvg.svg">
+<meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/mongodb-data-structure.png">
+<meta property="og:image" content="https://hugtyftg.github.io/img/database/mongoDB/JSON_Example_Python_MongoDB-mzqqz0keng.png">
+<meta property="article:published_time" content="2024-05-08T11:21:35.920Z">
+<meta property="article:modified_time" content="2024-05-08T11:23:43.113Z">
+<meta property="article:author" content="mmy@hugtyftg">
+<meta property="article:tag" content="blog">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hugtyftg.github.io/img/database/mongoDB/image-20240508171015259.png">
+  
+  
+  
+  <title>积微</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hugtyftg.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>积微</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text=""></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-08 19:21" pubdate>
+          2024年5月8日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          9 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header"></h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>mongoDB是一个流行的开源NoSQL文档型数据库，由若干JSON格式且具备schema的document组成，可以在MongoDB Atlas云平台使用，并且内置服务性能分析模块等，非常强大。</p>
+<p>本文分为mongoDB核心概念介绍、mongoose介绍和express实战三个方面。</p>
+<h1 id="mongoDB核心概念"><a href="#mongoDB核心概念" class="headerlink" title="mongoDB核心概念"></a>mongoDB核心概念</h1><h2 id="数据库常规概念回顾"><a href="#数据库常规概念回顾" class="headerlink" title="数据库常规概念回顾"></a>数据库常规概念回顾</h2><p>每个database由多张table组成，每张table的构成如下：</p>
+<p><img src="/img/database/mongoDB/image-20240508171015259.png" srcset="/img/loading.gif" lazyload alt="image-20240508171015259"></p>
+<h2 id="mongoDB-architecture"><a href="#mongoDB-architecture" class="headerlink" title="mongoDB architecture"></a>mongoDB architecture</h2><p><img src="/img/database/mongoDB/document-store-100893897-large.jpg" srcset="/img/loading.gif" lazyload alt="document store"></p>
+<h2 id="Mongo-Instance"><a href="#Mongo-Instance" class="headerlink" title="Mongo Instance"></a>Mongo Instance</h2><p>可以理解成一个server，管理多个database</p>
+<h2 id="database"><a href="#database" class="headerlink" title="database"></a>database</h2><p>MongoDB中的database指的是数据的物理容器，一个MongoDB服务器包含多个数据库，每个数据库内都有一套独立的文件系统</p>
+<p><img src="/img/database/mongoDB/mongodb-collection-vs-document.jpg" srcset="/img/loading.gif" lazyload alt="Relational and non relational databases"></p>
+<h2 id="collection"><a href="#collection" class="headerlink" title="collection"></a>collection</h2><p>collection是一组document的集合，通常可以被类比成关系型数据库中的表，不同的是collection没有schema约束，而document有schema。</p>
+<p><img src="/img/database/mongoDB/crud-annotated-collection.bakedsvg.svg" srcset="/img/loading.gif" lazyload alt="Databases and Collections - MongoDB Manual v7.0"></p>
+<h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><p>document是Field-Value键值对的集合（必须是JSON格式）。每个document都有<strong>动态schema结构</strong>，这意味着collection中每个document可能有截然不同的结构或fields，可能有相同的filed也可能没有</p>
+<p>db.users是一个collection，通过调用insert方法向其中插入一个collection，或者通过insertMany插入多个collection</p>
+<p>备注：一般来说不直接这样使用db，推荐使用mongoose连接和管理数据库，通过schema建立model，通过model操作对应数据</p>
+<p><img src="/img/database/mongoDB/mongodb-data-structure.png" srcset="/img/loading.gif" lazyload alt="MongoDB Data Types &amp; Field-Value Pairs | Studio 3T"></p>
+<h2 id="Field-Value-Pair"><a href="#Field-Value-Pair" class="headerlink" title="Field-Value Pair"></a>Field-Value Pair</h2><p><img src="/img/database/mongoDB/JSON_Example_Python_MongoDB-mzqqz0keng.png" srcset="/img/loading.gif" lazyload alt="MongoDB Data Types &amp; Field-Value Pairs | Studio 3T"></p>
+<h1 id="mongoose介绍"><a href="#mongoose介绍" class="headerlink" title="mongoose介绍"></a>mongoose介绍</h1><p>mongoose是nodeJS环境下连接mongoDB的第三方库，是对数据库操作进行封装的对象模型工具，将数据库中的数据转换成javascript对象方便开发者使用，核心概念是schema和models</p>
+<h2 id="schema"><a href="#schema" class="headerlink" title="schema"></a>schema</h2><p>mongoose中的一切都起源于一个schema，每个schema映射到MongoDB内collection中的document格式。</p>
+<p>schema不仅定义了document的field和structure，还定义了<strong>文档实例方法、模型静态方法、复合索引</strong></p>
+<p>schema是动态的</p>
+<p>schema甚至可以约束<strong>枚举</strong>	</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>(<br>  &#123;<br>    <span class="hljs-attr">name</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;String&#x27;</span>,<br>      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>,<br>      <span class="hljs-attr">max</span>: <span class="hljs-number">100</span>,<br>    &#125;,<br>		...<br>  &#125;,<br>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="models"><a href="#models" class="headerlink" title="models"></a>models</h2><p>使用schema定义可以创建我们需要的数据模型model，便于在controller层操作使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// server/models/User.js</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">User</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>, <span class="hljs-title class_">UserSchema</span>);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// server/controller/general.js</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">User</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../models/User.js&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">getUser</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params">req, res</span>) =&gt; &#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; id &#125; = req.<span class="hljs-property">params</span>;<br>    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> <span class="hljs-title class_">User</span>.<span class="hljs-title function_">findById</span>(id);<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">200</span>).<span class="hljs-title function_">json</span>(user);<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>(&#123;<br>      <span class="hljs-attr">code</span>: -<span class="hljs-number">1</span>,<br>      <span class="hljs-attr">message</span>: error.<span class="hljs-property">message</span>,<br>    &#125;);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="模型静态方法"><a href="#模型静态方法" class="headerlink" title="模型静态方法"></a>模型静态方法</h2><p>可以对通过schema创建的model进行操作，如findById、insertMany等方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> <span class="hljs-title class_">User</span>.<span class="hljs-title function_">findById</span>(id);<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title class_">User</span>.<span class="hljs-title function_">insertMany</span>(dataUser); <span class="hljs-comment">// dataUser是一个满足schema的对象数组</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="express-MongoDB-mongoose实战"><a href="#express-MongoDB-mongoose实战" class="headerlink" title="express+MongoDB+mongoose实战"></a>express+MongoDB+mongoose实战</h1><h2 id="0-预备工作"><a href="#0-预备工作" class="headerlink" title="0.预备工作"></a>0.预备工作</h2><p>登录<a target="_blank" rel="noopener" href="https://cloud.mongodb.com/%E5%BB%BA%E7%AB%8Bdatabase%EF%BC%8C%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8azure%E6%88%96%E8%80%85aws%E7%9A%84%E5%85%8D%E8%B4%B9%E8%B5%84%E6%BA%90%E5%BB%BA%E7%AB%8Bcluster">https://cloud.mongodb.com/建立database，可以使用azure或者aws的免费资源建立cluster</a></p>
+<p>设置IP和User access白名单保证云端数据库的安全性</p>
+<h2 id="1-mongoose连接数据库"><a href="#1-mongoose连接数据库" class="headerlink" title="1.mongoose连接数据库"></a>1.mongoose连接数据库</h2><p>在根目录下新建<code>.env</code>文件存放环境变量如MONGO_URL、PORT，通过dotenv读取信息</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js">dotenv.<span class="hljs-title function_">config</span>(); <span class="hljs-comment">// 将.env敏感信息注入到环境中、能被process.env访问</span><br><span class="hljs-comment">/* MONGOOSE SETUP */</span><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">PORT</span> = process.<span class="hljs-property">env</span>.<span class="hljs-property">PORT</span> || <span class="hljs-number">9000</span>;<br>mongoose<br>  .<span class="hljs-title function_">connect</span>(process.<span class="hljs-property">env</span>.<span class="hljs-property">MONGO_URL</span>)<br>  .<span class="hljs-title function_">then</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    app.<span class="hljs-title function_">listen</span>(<span class="hljs-variable constant_">PORT</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`server is running at http://localhost:<span class="hljs-subst">$&#123;PORT&#125;</span>`</span>);<br>    &#125;);<br>  &#125;)<br>  .<span class="hljs-title function_">catch</span>(<span class="hljs-function">(<span class="hljs-params">error</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(error);<br>  &#125;);<br></code></pre></td></tr></table></figure>
+
+<h2 id="2-model层建立schema和collection"><a href="#2-model层建立schema和collection" class="headerlink" title="2.model层建立schema和collection"></a>2.model层建立schema和collection</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> mongoose <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;mongoose&#x27;</span>;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">UserSchema</span> = mongoose.<span class="hljs-title class_">Schema</span>(<br>  &#123;<br>    <span class="hljs-attr">name</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;String&#x27;</span>,<br>      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">min</span>: <span class="hljs-number">2</span>,<br>      <span class="hljs-attr">max</span>: <span class="hljs-number">100</span>,<br>    &#125;,<br>    <span class="hljs-attr">email</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;String&#x27;</span>,<br>      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">unique</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">max</span>: <span class="hljs-number">50</span>,<br>    &#125;,<br>    <span class="hljs-attr">password</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;String&#x27;</span>,<br>      <span class="hljs-attr">required</span>: <span class="hljs-literal">true</span>,<br>      <span class="hljs-attr">min</span>: <span class="hljs-number">5</span>,<br>    &#125;,<br>    <span class="hljs-attr">city</span>: <span class="hljs-title class_">String</span>,<br>    <span class="hljs-attr">state</span>: <span class="hljs-title class_">String</span>,<br>    <span class="hljs-attr">country</span>: <span class="hljs-title class_">String</span>,<br>    <span class="hljs-attr">occupation</span>: <span class="hljs-title class_">String</span>,<br>    <span class="hljs-attr">phoneNumber</span>: <span class="hljs-title class_">String</span>,<br>    <span class="hljs-attr">transactions</span>: <span class="hljs-title class_">Array</span>,<br>    <span class="hljs-attr">role</span>: &#123;<br>      <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;String&#x27;</span>,<br>      <span class="hljs-attr">enum</span>: [<span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-string">&#x27;admin&#x27;</span>, <span class="hljs-string">&#x27;superadmin&#x27;</span>],<br>      <span class="hljs-attr">default</span>: <span class="hljs-string">&#x27;admin&#x27;</span>,<br>    &#125;,<br>  &#125;,<br>  &#123;<br>    <span class="hljs-attr">timestamps</span>: <span class="hljs-literal">true</span>,<br>  &#125;<br>);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">User</span> = mongoose.<span class="hljs-title function_">model</span>(<span class="hljs-string">&#x27;User&#x27;</span>, <span class="hljs-title class_">UserSchema</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="3-controller层封装操作"><a href="#3-controller层封装操作" class="headerlink" title="3.controller层封装操作"></a>3.controller层封装操作</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">User</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../models/User.js&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">getUser</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params">req, res</span>) =&gt; &#123;<br>  <span class="hljs-keyword">try</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; id &#125; = req.<span class="hljs-property">params</span>;<br>    <span class="hljs-keyword">const</span> user = <span class="hljs-keyword">await</span> <span class="hljs-title class_">User</span>.<span class="hljs-title function_">findById</span>(id);<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">200</span>).<span class="hljs-title function_">json</span>(user);<br>  &#125; <span class="hljs-keyword">catch</span> (error) &#123;<br>    res.<span class="hljs-title function_">status</span>(<span class="hljs-number">404</span>).<span class="hljs-title function_">json</span>(&#123;<br>      <span class="hljs-attr">code</span>: -<span class="hljs-number">1</span>,<br>      <span class="hljs-attr">message</span>: error.<span class="hljs-property">message</span>,<br>    &#125;);<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4-暴露后端API并测试"><a href="#4-暴露后端API并测试" class="headerlink" title="4.暴露后端API并测试"></a>4.暴露后端API并测试</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"># server/routes/general.<span class="hljs-property">js</span><br><span class="hljs-keyword">import</span> express <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;express&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; getUser &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;../controller/general.js&#x27;</span>;<br><br><span class="hljs-keyword">const</span> router = express.<span class="hljs-title class_">Router</span>();<br><br>router.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/user/:id&#x27;</span>, getUser);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> router;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"># server/index.<span class="hljs-property">js</span><br><span class="hljs-keyword">import</span> generaRoutes <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./routes/general.js&#x27;</span>;<br>app.<span class="hljs-title function_">use</span>(<span class="hljs-string">&#x27;/general&#x27;</span>, generaRoutes);<br></code></pre></td></tr></table></figure>
+
+<p>访问<a target="_blank" rel="noopener" href="http://localhost:5001/general/user/63701cc1f03239b7f700000e%E5%8F%AF%E4%BB%A5%E6%AD%A3%E7%A1%AE%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE">http://localhost:5001/general/user/63701cc1f03239b7f700000e可以正确获取数据</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;63701cc1f03239b7f700000e&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;name&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Shelly&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;swelbeck12@ycombinator.com&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;RSjzmAjnq&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;city&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Sangoleng&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;state&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;country&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ID&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;occupation&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;Pharmacist&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;phoneNumber&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;7036619983&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;transactions&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-string">&quot;63701d74f03239d81e000027&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;63701d74f032396b8e00002c&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;63701d74f032396b8e000037&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;63701d74f03239d81e00002a&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;63701d74f03239c72c0001ba&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;63701d74f032399c00000151&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;63701d74f03239c72c0001a1&quot;</span><br>    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;role&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;superadmin&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;__v&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;createdAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-05-08T07:06:12.736Z&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;updatedAt&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;2024-05-08T07:06:12.736Z&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div></div>
+      <div>https://hugtyftg.github.io/2024/05/08/MongoDB初探/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>mmy@hugtyftg</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/02/TCP%E5%AE%9E%E7%8E%B0HTTP%E6%9C%8D%E5%8A%A1/" title="TCP实现HTTP服务">
+                        <span class="hidden-mobile">TCP实现HTTP服务</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/hugtyftg" target="_blank" rel="nofollow noopener"><span>mmy@hugtyftg</span></a> <span> ©2024</span> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
