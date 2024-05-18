@@ -1,0 +1,698 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="mmy@hugtyftg">
+  <meta name="keywords" content="blog">
+  
+    <meta name="description" content="多人开发的正确工作流程在dev1分支下我们开发一个新功能，并且在开发的时候分成3个stage提交（方便改bug），但是实际上我们最终只需要提交一个代表该新功能的commit到远端，并合入main分支，应该怎么做呢？ dev12345678910111213141516# dev stage 1➜  learn-git git:(dev1) git add .➜  learn-git git:(de">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多人项目git协同实践">
+<meta property="og:url" content="https://hugtyftg.github.io/2024/05/18/%E5%A4%9A%E4%BA%BA%E9%A1%B9%E7%9B%AEgit%E5%8D%8F%E5%90%8C%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="积微">
+<meta property="og:description" content="多人开发的正确工作流程在dev1分支下我们开发一个新功能，并且在开发的时候分成3个stage提交（方便改bug），但是实际上我们最终只需要提交一个代表该新功能的commit到远端，并合入main分支，应该怎么做呢？ dev12345678910111213141516# dev stage 1➜  learn-git git:(dev1) git add .➜  learn-git git:(de">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://hugtyftg.github.io/img/git/workflow/1.svg">
+<meta property="og:image" content="https://hugtyftg.github.io/img/git/workflow/3.png">
+<meta property="og:image" content="https://hugtyftg.github.io/img/git/workflow/2.svg">
+<meta property="og:image" content="https://hugtyftg.github.io/img/git/workflow/4.png">
+<meta property="article:published_time" content="2024-05-18T07:15:51.000Z">
+<meta property="article:modified_time" content="2024-05-18T07:15:45.780Z">
+<meta property="article:author" content="mmy@hugtyftg">
+<meta property="article:tag" content="git">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hugtyftg.github.io/img/git/workflow/1.svg">
+  
+  
+  
+  <title>多人项目git协同实践 - 积微</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"hugtyftg.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>积微</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="多人项目git协同实践"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-18 15:15" pubdate>
+          2024年5月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          18 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">多人项目git协同实践</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="多人开发的正确工作流程"><a href="#多人开发的正确工作流程" class="headerlink" title="多人开发的正确工作流程"></a>多人开发的正确工作流程</h1><p>在dev1分支下我们开发一个新功能，并且在开发的时候分成3个stage提交（方便改bug），但是实际上我们最终只需要提交一个代表该新功能的commit到远端，并合入main分支，应该怎么做呢？</p>
+<h2 id="dev"><a href="#dev" class="headerlink" title="dev"></a>dev</h2><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment"># dev stage 1</span><br>➜  learn-git git:(dev1) git <span class="hljs-keyword">add </span>.<br>➜  learn-git git:(dev1) ✗ git commit -m <span class="hljs-string">&quot;feat: feature 1&quot;</span><br>[dev1 <span class="hljs-number">53</span>adc27] feat: feature <span class="hljs-number">1</span><br> <span class="hljs-number">1</span> file changed, <span class="hljs-number">2</span> <span class="hljs-keyword">insertions(+), </span><span class="hljs-number">1</span> deletion(-)<br><span class="hljs-comment"># dev stage 2</span><br>➜  learn-git git:(dev1) git <span class="hljs-keyword">add </span>.<br>➜  learn-git git:(dev1) ✗ git commit -m <span class="hljs-string">&quot;feat: lunch time&quot;</span><br>[dev1 <span class="hljs-number">3874836</span>] feat: lunch time<br> <span class="hljs-number">1</span> file changed, <span class="hljs-number">2</span> <span class="hljs-keyword">insertions(+), </span><span class="hljs-number">1</span> deletion(-)<br><span class="hljs-comment"># dev stage 3</span><br>➜  learn-git git:(dev1) ✗ git <span class="hljs-keyword">add </span>.<br>➜  learn-git git:(dev1) ✗ git commit -m <span class="hljs-string">&quot;fix: brunch time&quot;</span><br>[dev1 <span class="hljs-number">94</span>a90c2] fix: <span class="hljs-keyword">brunch </span>time<br> <span class="hljs-number">1</span> file changed, <span class="hljs-number">1</span> <span class="hljs-keyword">insertion(+), </span><span class="hljs-number">1</span> deletion(-)<br><span class="hljs-comment"># finish dev</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="local-cleanup"><a href="#local-cleanup" class="headerlink" title="local cleanup"></a>local cleanup</h2><p>查看提交记录，找到对于该功能一共提交了多少次，这里是3次</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c">➜  learn-git git:(dev1) git <span class="hljs-built_in">log</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">commit</span> <span class="hljs-number">94</span>a90c28d614326dcbd3a4df2739c5775c60eb78 (HEAD -&gt; dev1)<br><span class="hljs-attribute">Author</span>: mmy &lt;<span class="hljs-number">15224924822</span>@<span class="hljs-number">163</span>.com&gt;<br><span class="hljs-attribute">Date</span>:   Sat May <span class="hljs-number">18</span> <span class="hljs-number">12</span>:<span class="hljs-number">37</span>:<span class="hljs-number">41</span> <span class="hljs-number">2024</span> +<span class="hljs-number">0800</span><br><br>    <span class="hljs-attribute">fix</span>: brunch time<br><br><span class="hljs-attribute">commit</span> <span class="hljs-number">38748366091</span>e3dbd30a1ce4ab995ece8671720ad<br><span class="hljs-attribute">Author</span>: mmy &lt;<span class="hljs-number">15224924822</span>@<span class="hljs-number">163</span>.com&gt;<br><span class="hljs-attribute">Date</span>:   Sat May <span class="hljs-number">18</span> <span class="hljs-number">12</span>:<span class="hljs-number">37</span>:<span class="hljs-number">06</span> <span class="hljs-number">2024</span> +<span class="hljs-number">0800</span><br><br>    <span class="hljs-attribute">feat</span>: lunch time<br><br><span class="hljs-attribute">commit</span> <span class="hljs-number">53</span>adc276bae51c26f0bc5c7ca503d017027fe1c4<br><span class="hljs-attribute">Author</span>: mmy &lt;<span class="hljs-number">15224924822</span>@<span class="hljs-number">163</span>.com&gt;<br><span class="hljs-attribute">Date</span>:   Sat May <span class="hljs-number">18</span> <span class="hljs-number">12</span>:<span class="hljs-number">36</span>:<span class="hljs-number">42</span> <span class="hljs-number">2024</span> +<span class="hljs-number">0800</span><br><br>    <span class="hljs-attribute">feat</span>: feature <span class="hljs-number">1</span><br><br><span class="hljs-attribute">commit</span> db9cfb80676bb88506a7bfcbb08101ad7df594de (origin/dev1)<br><span class="hljs-attribute">Author</span>: mmy &lt;<span class="hljs-number">15224924822</span>@<span class="hljs-number">163</span>.com&gt;<br><span class="hljs-attribute">Date</span>:   Thu May <span class="hljs-number">16</span> <span class="hljs-number">14</span>:<span class="hljs-number">49</span>:<span class="hljs-number">13</span> <span class="hljs-number">2024</span> +<span class="hljs-number">0800</span><br><br>    <span class="hljs-attribute">fix</span>: description<br></code></pre></td></tr></table></figure>
+
+<p>需要将这3次提交squash成1次，并且修改提交信息</p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs smali">➜  learn-git git:(dev1) git rebase -i HEAD~3<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/img/git/workflow/1.svg" srcset="/img/loading.gif" lazyload alt="Rebasing into Head-3"></p>
+<p>rebase信息修改前：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell">pick 53adc27 feat: feature 1<br>pick 3874836 feat: lunch time<br>pick 94a90c2 fix: brunch time<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">变基 db9cfb8..94a90c2 到 db9cfb8（3 个提交）</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 命令:</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">p, pick &lt;提交&gt; = 使用提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">r, reword &lt;提交&gt; = 使用提交，但编辑提交说明</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">e, edit &lt;提交&gt; = 使用提交，但停止以便修补提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">s, squash &lt;提交&gt; = 使用提交，但挤压到前一个提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">f, fixup [-C | -c] &lt;提交&gt; = 类似于 <span class="hljs-string">&quot;squash&quot;</span>，但只保留前一个提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                   的提交说明，除非使用了 -C 参数，此情况下则只</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                   保留本提交说明。使用 -c 和 -C 类似，但会打开</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                   编辑器修改提交说明</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">x, <span class="hljs-built_in">exec</span> &lt;命令&gt; = 使用 shell 运行命令（此行剩余部分）</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">b, <span class="hljs-built_in">break</span> = 在此处停止（使用 <span class="hljs-string">&#x27;git rebase --continue&#x27;</span> 继续变基）</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">d, drop &lt;提交&gt; = 删除提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">l, label &lt;label&gt; = 为当前 HEAD 打上标记</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">t, reset &lt;label&gt; = 重置 HEAD 到该标记</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [<span class="hljs-comment"># &lt;oneline&gt;]</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">.       创建一个合并提交，并使用原始的合并提交说明（如果没有指定</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">.       原始提交，使用注释部分的 oneline 作为提交说明）。使用</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">.       -c &lt;提交&gt; 可以编辑提交说明。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">u, update-ref &lt;引用&gt; = 为引用 &lt;ref&gt; 设置一个占位符，以将该引用更新为此处的新提交。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                      此 &lt;引用&gt; 在变基结束后更新。</span><br>-- INSERT --<br></code></pre></td></tr></table></figure>
+
+<p>rebase信息修改后：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs shell">pick 53adc27 feat: feature 1<br>s 3874836 feat: lunch time<br>s 94a90c2 fix: brunch time<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">变基 db9cfb8..94a90c2 到 db9cfb8（3 个提交）</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"></span><br><span class="language-bash"><span class="hljs-comment"># 命令:</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">p, pick &lt;提交&gt; = 使用提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">r, reword &lt;提交&gt; = 使用提交，但编辑提交说明</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">e, edit &lt;提交&gt; = 使用提交，但停止以便修补提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">s, squash &lt;提交&gt; = 使用提交，但挤压到前一个提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">f, fixup [-C | -c] &lt;提交&gt; = 类似于 <span class="hljs-string">&quot;squash&quot;</span>，但只保留前一个提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                   的提交说明，除非使用了 -C 参数，此情况下则只</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                   保留本提交说明。使用 -c 和 -C 类似，但会打开</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                   编辑器修改提交说明</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">x, <span class="hljs-built_in">exec</span> &lt;命令&gt; = 使用 shell 运行命令（此行剩余部分）</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">b, <span class="hljs-built_in">break</span> = 在此处停止（使用 <span class="hljs-string">&#x27;git rebase --continue&#x27;</span> 继续变基）</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">d, drop &lt;提交&gt; = 删除提交</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">l, label &lt;label&gt; = 为当前 HEAD 打上标记</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">t, reset &lt;label&gt; = 重置 HEAD 到该标记</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">m, merge [-C &lt;commit&gt; | -c &lt;commit&gt;] &lt;label&gt; [<span class="hljs-comment"># &lt;oneline&gt;]</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">.       创建一个合并提交，并使用原始的合并提交说明（如果没有指定</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">.       原始提交，使用注释部分的 oneline 作为提交说明）。使用</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">.       -c &lt;提交&gt; 可以编辑提交说明。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">u, update-ref &lt;引用&gt; = 为引用 &lt;ref&gt; 设置一个占位符，以将该引用更新为此处的新提交。</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">                      此 &lt;引用&gt; 在变基结束后更新。</span><br>:wq<br></code></pre></td></tr></table></figure>
+
+<p>commit信息修改前：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs clean"># 这是一个 <span class="hljs-number">3</span> 个提交的组合。<br># 这是第一个提交说明：<br><br>feat: feature <span class="hljs-number">1</span><br><br># 这是提交说明 #<span class="hljs-number">2</span>：<br><br>feat: lunch time<br><br># 这是提交说明 #<span class="hljs-number">3</span>：<br><br>fix: brunch time<br><br># 请为您的变更输入提交说明。以 <span class="hljs-string">&#x27;#&#x27;</span> 开始的行将被忽略，而一个空的提交<br># 说明将会终止提交。<br>#<br># 日期：  Sat May <span class="hljs-number">18</span> <span class="hljs-number">12</span>:<span class="hljs-number">36</span>:<span class="hljs-number">42</span> <span class="hljs-number">2024</span> +<span class="hljs-number">0800</span><br>#<br># 交互式变基操作正在进行中；至 db9cfb8<br># 最后完成的命令（<span class="hljs-number">3</span> 条命令被执行）：<br>#    squash <span class="hljs-number">3874836</span> feat: lunch time<br>#    squash <span class="hljs-number">94</span>a90c2 fix: brunch time<br># 未剩下任何命令。<br># 您在执行将分支 <span class="hljs-string">&#x27;dev1&#x27;</span> 变基到 <span class="hljs-string">&#x27;db9cfb8&#x27;</span> 的操作。<br>#<br># 要提交的变更：<br><span class="hljs-string">&quot;~/develop/codes/learn-git/.git/COMMIT_EDITMSG&quot;</span> <span class="hljs-number">28</span>L, <span class="hljs-number">683</span>B<br></code></pre></td></tr></table></figure>
+
+<p>commit信息修改后：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs autoit">feat: feature <span class="hljs-number">1</span><br><br><span class="hljs-meta"># 请为您的变更输入提交说明。以 <span class="hljs-string">&#x27;#&#x27;</span> 开始的行将被忽略，而一个空的提交</span><br><span class="hljs-meta"># 说明将会终止提交。</span><br><span class="hljs-meta">#</span><br><span class="hljs-meta"># 日期：  Sat May 18 12:36:42 2024 +0800</span><br><span class="hljs-meta">#</span><br><span class="hljs-meta"># 交互式变基操作正在进行中；至 db9cfb8</span><br><span class="hljs-meta"># 最后完成的命令（3 条命令被执行）：</span><br><span class="hljs-meta">#    squash 3874836 feat: lunch time</span><br><span class="hljs-meta">#    squash 94a90c2 fix: brunch time</span><br><span class="hljs-meta"># 未剩下任何命令。</span><br><span class="hljs-meta"># 您在执行将分支 <span class="hljs-string">&#x27;dev1&#x27;</span> 变基到 <span class="hljs-string">&#x27;db9cfb8&#x27;</span> 的操作。</span><br><span class="hljs-meta">#</span><br><span class="hljs-meta"># 要提交的变更：</span><br><span class="hljs-meta">#       修改：     README.md                                     </span><br>:wq<br></code></pre></td></tr></table></figure>
+
+<p>再次git log发现就只剩一条</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">commit</span> <span class="hljs-number">6188</span>a860fc471e7f364a0d5348c78293df547a2a (HEAD <span class="hljs-operator">-</span><span class="hljs-operator">&gt;</span> dev1)<br>Author: mmy <span class="hljs-operator">&lt;</span><span class="hljs-number">15224924822</span><span class="hljs-variable">@163</span>.com<span class="hljs-operator">&gt;</span><br><span class="hljs-type">Date</span>:   Sat May <span class="hljs-number">18</span> <span class="hljs-number">12</span>:<span class="hljs-number">36</span>:<span class="hljs-number">42</span> <span class="hljs-number">2024</span> <span class="hljs-operator">+</span><span class="hljs-number">0800</span><br><br>    feat: feature <span class="hljs-number">1</span><br><br><span class="hljs-keyword">commit</span> db9cfb80676bb88506a7bfcbb08101ad7df594de (origin<span class="hljs-operator">/</span>dev1)<br>Author: mmy <span class="hljs-operator">&lt;</span><span class="hljs-number">15224924822</span><span class="hljs-variable">@163</span>.com<span class="hljs-operator">&gt;</span><br><span class="hljs-type">Date</span>:   Thu May <span class="hljs-number">16</span> <span class="hljs-number">14</span>:<span class="hljs-number">49</span>:<span class="hljs-number">13</span> <span class="hljs-number">2024</span> <span class="hljs-operator">+</span><span class="hljs-number">0800</span><br><br>    fix: description<br><br><span class="hljs-keyword">commit</span> <span class="hljs-number">38</span>f1ba6768ee74dcdc6dbaf04def41844474deda<br>Author: mmy <span class="hljs-operator">&lt;</span><span class="hljs-number">15224924822</span><span class="hljs-variable">@163</span>.com<span class="hljs-operator">&gt;</span><br><span class="hljs-type">Date</span>:   Thu May <span class="hljs-number">16</span> <span class="hljs-number">14</span>:<span class="hljs-number">46</span>:<span class="hljs-number">29</span> <span class="hljs-number">2024</span> <span class="hljs-operator">+</span><span class="hljs-number">0800</span><br><br>    <span class="hljs-keyword">first</span> <span class="hljs-keyword">commit</span><br>(<span class="hljs-keyword">END</span>)<br></code></pre></td></tr></table></figure>
+
+<h2 id="rebase-to-main"><a href="#rebase-to-main" class="headerlink" title="rebase to main"></a>rebase to main</h2><p>我们目前已经处理好本次提交的相关信息了，能不能直接推远端呢？</p>
+<p>答案是<strong>不能</strong></p>
+<p>因为在我们开发的时候也有其他同学在开发新的功能，如果别人比我们开发得早，那我们这个feature肯定有冲突</p>
+<ul>
+<li><p>如果从本地特性分支直接推到远程主分支，控制台会报错</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs stylus">➜  learn-git git:(dev1) git push origin <span class="hljs-selector-tag">main</span><br>Enter passphrase <span class="hljs-keyword">for</span> key <span class="hljs-string">&#x27;/Users/mmy/.ssh/id_rsa&#x27;</span>: <br>To github<span class="hljs-selector-class">.com</span>:hugtyftg/learn-git<span class="hljs-selector-class">.git</span><br> ! <span class="hljs-selector-attr">[rejected]</span>        <span class="hljs-selector-tag">main</span> -&gt; <span class="hljs-selector-tag">main</span> (fetch first)<br>错误：无法推送一些引用到 <span class="hljs-string">&#x27;github.com:hugtyftg/learn-git.git&#x27;</span><br>提示：更新被拒绝，因为远程仓库包含您本地尚不存在的提交。这通常是因为另外<br>提示：一个仓库已向该引用进行了推送。如果您希望先与远程变更合并，请在推送<br>提示：前执行 <span class="hljs-string">&#x27;git pull&#x27;</span>。<br>提示：详见 <span class="hljs-string">&#x27;git push --help&#x27;</span> 中的 <span class="hljs-string">&#x27;Note about fast-forwards&#x27;</span> 小节。<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>如果本地特性分支推到远程特性分支，然后给远程主分支提mr，<strong>pipeline automatic merge也会提示我们存在conflicts</strong>。</p>
+<p><img src="/img/git/workflow/3.png" srcset="/img/loading.gif" lazyload alt="未rebase提mr"></p>
+</li>
+</ul>
+<p>无论如何都要解决冲突！</p>
+<p>要想解决冲突，一定要<strong>在特性分支上rebase保证线性提交历史</strong></p>
+<p><img src="/img/git/workflow/2.svg" srcset="/img/loading.gif" lazyload alt="Merge VS Rebase"></p>
+<h3 id="本地main分支同步远程repo"><a href="#本地main分支同步远程repo" class="headerlink" title="本地main分支同步远程repo"></a>本地main分支同步远程repo</h3><figure class="highlight tap"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs tap">➜  learn-git git:(dev1) git checkout main<br>切换到分支 &#x27;main&#x27;<br>您的分支与上游分支 &#x27;origin/main&#x27; 一致。<br>➜  learn-git git:(main) git pull origin main<br>Enter passphrase for key &#x27;/Users/mmy/.ssh/id_rsa&#x27;: <br>remote: Enumerating objects: 1, done.<br>remote: Counting objects: 100% (1/1), done.<br>remote: Total<span class="hljs-number"> 1 </span>(delta 0), reused<span class="hljs-number"> 0 </span>(delta 0), pack-reused 0<br>展开对象中: 100% (1/1),<span class="hljs-number"> 879 </span>字节 | 879.00 KiB/s, 完成.<br>来自 github.com:hugtyftg/learn-git<br> * branch            main       -&gt; FETCH_HEAD<br>   839752c..707c9cf  main       -&gt; origin/main<br>更新 839752c..707c9cf<br>Fast-forward<br><span class="hljs-number"> 07 </span>Rebasing into Head-3.svg |<span class="hljs-number"> 161 </span>++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++<br><span class="hljs-number"> 09 </span>Rebase vs Merge.svg      |  <span class="hljs-number"> 1 </span>+<br> README.md                   | <span class="hljs-number"> 47 </span>++++++++++++++++++++++++++--<br><span class="hljs-number"> 3 </span>files changed,<span class="hljs-number"> 206 </span>insertions(+),<span class="hljs-number"> 3 </span>deletions(-)<br> create mode<span class="hljs-number"> 100644 </span>07 Rebasing into Head-3.svg<br> create mode<span class="hljs-number"> 100644 </span>09 Rebase vs Merge.svg<br></code></pre></td></tr></table></figure>
+
+<h3 id="特性分支rebase-main"><a href="#特性分支rebase-main" class="headerlink" title="特性分支rebase main"></a>特性分支rebase main</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs routeros">➜  learn-git git:(main) git checkout dev1<br>切换到分支 <span class="hljs-string">&#x27;dev1&#x27;</span><br>您的分支与上游分支 <span class="hljs-string">&#x27;origin/dev1&#x27;</span> 一致。<br>➜  learn-git git:(dev1) git rebase main<br>自动合并 README.md<br>冲突（内容）：合并冲突于 README.md<br>错误：不能应用 6188a86<span class="hljs-built_in">..</span>. feat: feature 1<br>提示：Resolve all conflicts manually, mark them as resolved with<br>提示：<span class="hljs-string">&quot;git add/rm &lt;conflicted_files&gt;&quot;</span>, then <span class="hljs-built_in">run</span> <span class="hljs-string">&quot;git rebase --continue&quot;</span>.<br>提示：You can instead skip this commit: <span class="hljs-built_in">run</span> <span class="hljs-string">&quot;git rebase --skip&quot;</span>.<br>提示：<span class="hljs-keyword">To</span> abort <span class="hljs-keyword">and</span> <span class="hljs-built_in">get</span> back <span class="hljs-keyword">to</span> the state before <span class="hljs-string">&quot;git rebase&quot;</span>, <span class="hljs-built_in">run</span> <span class="hljs-string">&quot;git rebase --abort&quot;</span>.<br>不能应用 6188a86<span class="hljs-built_in">..</span>. feat: feature 1<br></code></pre></td></tr></table></figure>
+
+<h3 id="有冲突的话需要解决冲突"><a href="#有冲突的话需要解决冲突" class="headerlink" title="有冲突的话需要解决冲突"></a>有冲突的话需要解决冲突</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs autoit">feat: feature <span class="hljs-number">1</span><br><br><span class="hljs-meta"># 请为您的变更输入提交说明。以 <span class="hljs-string">&#x27;#&#x27;</span> 开始的行将被忽略，而一个空的提交</span><br><span class="hljs-meta"># 说明将会终止提交。</span><br><span class="hljs-meta">#</span><br><span class="hljs-meta"># 交互式变基操作正在进行中；至 707c9cf</span><br><span class="hljs-meta"># 最后完成的命令（1 条命令被执行）：</span><br><span class="hljs-meta">#    pick 6188a86 feat: feature 1</span><br><span class="hljs-meta"># 未剩下任何命令。</span><br><span class="hljs-meta"># 您在执行将分支 <span class="hljs-string">&#x27;dev1&#x27;</span> 变基到 <span class="hljs-string">&#x27;707c9cf&#x27;</span> 的操作。</span><br><span class="hljs-meta">#</span><br><span class="hljs-meta"># 要提交的变更：</span><br><span class="hljs-meta">#       修改：     README.md</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="冲突解决之后保存更改、继续rebase"><a href="#冲突解决之后保存更改、继续rebase" class="headerlink" title="冲突解决之后保存更改、继续rebase"></a>冲突解决之后保存更改、继续rebase</h3><figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs llvm">➜  learn-git git:(<span class="hljs-number">707</span><span class="hljs-keyword">c</span><span class="hljs-number">9</span>cf) ✗ git <span class="hljs-keyword">add</span> .<br>➜  learn-git git:(<span class="hljs-number">707</span><span class="hljs-keyword">c</span><span class="hljs-number">9</span>cf) ✗ git rebase --continue<br>[分离头指针 <span class="hljs-number">5</span>bca<span class="hljs-number">03</span><span class="hljs-keyword">c</span>] feat: feature <span class="hljs-number">1</span><br> <span class="hljs-number">1</span> file changed<span class="hljs-punctuation">,</span> <span class="hljs-number">4</span> insertions(+)<span class="hljs-punctuation">,</span> <span class="hljs-number">1</span> deletion(-)<br>成功变基并更新 refs/heads/dev<span class="hljs-number">1</span>。<br></code></pre></td></tr></table></figure>
+
+<h3 id="推送合入！"><a href="#推送合入！" class="headerlink" title="推送合入！"></a>推送合入！</h3><p>由于刚才已经给远程仓库push过一次了，所以这里需要强制推送覆盖远程dev1分支（<strong>万分注意-f</strong>）</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">➜  learn-git git:(dev1) git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> dev1 -f<br></code></pre></td></tr></table></figure>
+
+<p>推完之后可以发现pipeline又跑了一遍，并且这次没有conflicts了，可以准许合入。不过实际工作项目中还会有+1给你cr，ap之后才会合入……（ps: 实习阶段cr问题多千万要稳住心态，我曾经一个feat cr了6次才合入😭）</p>
+<p><img src="/img/git/workflow/4.png" srcset="/img/loading.gif" lazyload alt="rebase后提mr"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/git/" class="category-chain-item">git</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/git/" class="print-no-link">#git</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>多人项目git协同实践</div>
+      <div>https://hugtyftg.github.io/2024/05/18/多人项目git协同实践/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>mmy@hugtyftg</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/05/16/merge%20vs%20rebase/" title="merge vs rebase">
+                        <span class="hidden-mobile">merge vs rebase</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/hugtyftg" target="_blank" rel="nofollow noopener"><span>mmy@hugtyftg</span></a> <span> ©2024</span> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
