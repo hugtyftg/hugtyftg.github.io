@@ -16,12 +16,12 @@
   <meta name="author" content="mmy@hugtyftg">
   <meta name="keywords" content="blog">
   
-    <meta name="description" content="第一部分 导航1.DNS域名解析（应用层实现）     注意，如果配置过CDN，DNS解析过程会发生变化，第三步不再是查找权威域名服务器，而是智能DNS  2.传输层三次握手建立TCP连接  3.TLS协商对于HTTPS建立的安全连接，还需要额外进行一次TLS negotiate   客户端hello。浏览器向服务端发送一条消息，包含TLS版本号、 加密套件和一串在浏览器随机生成的字节，简记为第1">
+    <meta name="description" content="第一部分 导航1.DNS域名解析（应用层实现）  注意，如果配置过CDN，DNS解析过程会发生变化，第三步不再是查找权威域名服务器，而是智能DNS  2.传输层三次握手建立TCP连接 3.TLS协商对于HTTPS建立的安全连接，还需要额外进行一次TLS negotiate   客户端hello。浏览器向服务端发送一条消息，包含TLS版本号、 加密套件和一串在浏览器随机生成的字节，简记为第1随机数或">
 <meta property="og:type" content="article">
 <meta property="og:title" content="浏览器工作原理">
 <meta property="og:url" content="https://hugtyftg.github.io/2024/08/26/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="积微">
-<meta property="og:description" content="第一部分 导航1.DNS域名解析（应用层实现）     注意，如果配置过CDN，DNS解析过程会发生变化，第三步不再是查找权威域名服务器，而是智能DNS  2.传输层三次握手建立TCP连接  3.TLS协商对于HTTPS建立的安全连接，还需要额外进行一次TLS negotiate   客户端hello。浏览器向服务端发送一条消息，包含TLS版本号、 加密套件和一串在浏览器随机生成的字节，简记为第1">
+<meta property="og:description" content="第一部分 导航1.DNS域名解析（应用层实现）  注意，如果配置过CDN，DNS解析过程会发生变化，第三步不再是查找权威域名服务器，而是智能DNS  2.传输层三次握手建立TCP连接 3.TLS协商对于HTTPS建立的安全连接，还需要额外进行一次TLS negotiate   客户端hello。浏览器向服务端发送一条消息，包含TLS版本号、 加密套件和一串在浏览器随机生成的字节，简记为第1随机数或">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://hugtyftg.github.io/img/browser/work_process/DNS.png">
 <meta property="og:image" content="https://hugtyftg.github.io/img/browser/work_process/image-20240728214315492.png">
@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://hugtyftg.github.io/img/browser/work_process/image-20240830230949738-5030592.png">
 <meta property="og:image" content="https://hugtyftg.github.io/img/browser/work_process/4558a342cf659187a3d5ecbf16b7ecc08b5bd8d16c383c7e1c027045ccbaf0c4899429eaebdfec82-5032507.png">
 <meta property="article:published_time" content="2024-08-26T07:12:00.000Z">
-<meta property="article:modified_time" content="2024-08-30T15:51:32.711Z">
+<meta property="article:modified_time" content="2024-08-30T16:03:08.946Z">
 <meta property="article:author" content="mmy@hugtyftg">
 <meta property="article:tag" content="browser">
 <meta name="twitter:card" content="summary_large_image">
@@ -287,17 +287,13 @@
             
               <div class="markdown-body">
                 
-                <h1 id="第一部分-导航"><a href="#第一部分-导航" class="headerlink" title="第一部分 导航"></a>第一部分 导航</h1><h2 id="1-DNS域名解析（应用层实现）"><a href="#1-DNS域名解析（应用层实现）" class="headerlink" title="1.DNS域名解析（应用层实现）"></a>1.DNS域名解析（应用层实现）</h2><p><img src="/img/browser/work_process/DNS.png" srcset="/img/loading.gif" lazyload alt="DNS"></p>
-<img src="/img/browser/work_process/image-20240728214315492.png" srcset="/img/loading.gif" lazyload alt="image-20240728214315492" style="zoom:67%;" />
-
-
-
+                <h1 id="第一部分-导航"><a href="#第一部分-导航" class="headerlink" title="第一部分 导航"></a>第一部分 导航</h1><h2 id="1-DNS域名解析（应用层实现）"><a href="#1-DNS域名解析（应用层实现）" class="headerlink" title="1.DNS域名解析（应用层实现）"></a>1.DNS域名解析（应用层实现）</h2><p><img src="/img/browser/work_process/DNS.png" srcset="/img/loading.gif" lazyload alt="DNS lookup"></p>
+<p><img src="/img/browser/work_process/image-20240728214315492.png" srcset="/img/loading.gif" lazyload></p>
 <p>注意，如果配置过CDN，DNS解析过程会发生变化，<strong>第三步不再是查找权威域名服务器，而是智能DNS</strong></p>
-<p><img src="/img/browser/work_process/image-20240830234627235.png" srcset="/img/loading.gif" lazyload alt="image-20240830234627235"></p>
-<h2 id="2-传输层三次握手建立TCP连接"><a href="#2-传输层三次握手建立TCP连接" class="headerlink" title="2.传输层三次握手建立TCP连接"></a>2.传输层三次握手建立TCP连接</h2><img src="/img/browser/work_process/image-20240728214410565.png" srcset="/img/loading.gif" lazyload alt="image-20240728214410565" style="zoom:50%;" />
-
+<p><img src="/img/browser/work_process/image-20240830234627235.png" srcset="/img/loading.gif" lazyload alt="DNS lookup with CDN"></p>
+<h2 id="2-传输层三次握手建立TCP连接"><a href="#2-传输层三次握手建立TCP连接" class="headerlink" title="2.传输层三次握手建立TCP连接"></a>2.传输层三次握手建立TCP连接</h2><p><img src="/img/browser/work_process/image-20240728214410565.png" srcset="/img/loading.gif" lazyload alt="TCP three-way handshake"></p>
 <h2 id="3-TLS协商"><a href="#3-TLS协商" class="headerlink" title="3.TLS协商"></a>3.TLS协商</h2><p>对于HTTPS建立的安全连接，还需要额外进行一次TLS negotiate</p>
-<p><img src="/img/browser/work_process/image-20240728214448335.png" srcset="/img/loading.gif" lazyload alt="image-20240728214448335"></p>
+<p><img src="/img/browser/work_process/image-20240728214448335.png" srcset="/img/loading.gif" lazyload alt="TLS negotiate"></p>
 <ol>
 <li><p>客户端hello。浏览器向服务端发送一条消息，包含TLS版本号、<br> 加密套件和一串在浏览器随机生成的字节，简记为第1随机数或客户端随机数</p>
 </li>
@@ -347,9 +343,8 @@
 <p><img src="/img/browser/work_process/strong-cache.png" srcset="/img/loading.gif" lazyload alt="strong-cache"></p>
 <h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><p>当服务端发现资源的最后修改时间Last-Modified和If-Modified-Since值相等，代表资源从该时间之后从未改变过，返回<strong>304状态码和空响应体</strong>，浏览器拿到后知道原本可能过期的强缓存内容还可以继续使用。</p>
 <p>如果值不相等，说明资源改变了，就会返回200状态码，响应体内为最新资源</p>
-<h2 id="5-四次挥手断开TCP连接"><a href="#5-四次挥手断开TCP连接" class="headerlink" title="5.四次挥手断开TCP连接"></a>5.四次挥手断开TCP连接</h2><p><img src="/img/browser/work_process/image-20240202191126170.png" srcset="/img/loading.gif" lazyload alt="image-20240202191126170"></p>
-<h1 id="第三部分-HTML解析"><a href="#第三部分-HTML解析" class="headerlink" title="第三部分 HTML解析"></a>第三部分 HTML解析</h1><img src="/img/browser/work_process/image-20240728214726819.png" srcset="/img/loading.gif" lazyload alt="image-20240728214726819" style="zoom:50%;" />
-
+<h2 id="5-四次挥手断开TCP连接"><a href="#5-四次挥手断开TCP连接" class="headerlink" title="5.四次挥手断开TCP连接"></a>5.四次挥手断开TCP连接</h2><p><img src="/img/browser/work_process/image-20240202191126170.png" srcset="/img/loading.gif" lazyload alt="TCP four-way handshake"></p>
+<h1 id="第三部分-HTML解析"><a href="#第三部分-HTML解析" class="headerlink" title="第三部分 HTML解析"></a>第三部分 HTML解析</h1><p><img src="/img/browser/work_process/image-20240728214726819.png" srcset="/img/loading.gif" lazyload alt="HTML Parser"></p>
 <p>使用HTML Parser进行：</p>
 <ol>
 <li><strong>将GET请求获取的字节流解码得到字符，</strong></li>
@@ -365,22 +360,20 @@
 <p>prefetch：空闲时加载，不立即执行</p>
 <p>async：异步加载</p>
 <p>defer：延时加载</p>
-<h1 id="第四部分-CSS解析"><a href="#第四部分-CSS解析" class="headerlink" title="第四部分 CSS解析"></a>第四部分 CSS解析</h1><img src="/img/browser/work_process/image-20240728214847100.png" srcset="/img/loading.gif" lazyload alt="image-20240728214847100" style="zoom:50%;" />
-
+<h1 id="第四部分-CSS解析"><a href="#第四部分-CSS解析" class="headerlink" title="第四部分 CSS解析"></a>第四部分 CSS解析</h1><p><img src="/img/browser/work_process/image-20240728214847100.png" srcset="/img/loading.gif" lazyload alt="CSSOM Creation"></p>
 <p>过程类似HTML，但是<strong>CSS selector是从右向左读的</strong></p>
 <p> section p { color: blue; },<br>浏览器将首先查找页面上的所有 p 标签，<br>然后它会查看这些 p 标签中是否有一个 section 标签作为父标签。<br>如果查找能够命中，它将应用这个 CSS 规则</p>
 <h1 id="第五部分-javascript执行"><a href="#第五部分-javascript执行" class="headerlink" title="第五部分 javascript执行"></a>第五部分 javascript执行</h1><h2 id="浏览器内核与js引擎"><a href="#浏览器内核与js引擎" class="headerlink" title="浏览器内核与js引擎"></a>浏览器内核与js引擎</h2><p>浏览器内核：最初内核的概念包括渲染引擎和js引擎，目前直接称渲染引擎为内核，js引擎独立</p>
 <p>渲染引擎：rendering engineer，主要功能是解析HTML&#x2F;CSS渲染页面</p>
 <p>js引擎：专门处理javascript脚本的virtual machine、解释器</p>
-<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p><img src="/img/browser/work_process/image-20240728214937098.png" srcset="/img/loading.gif" lazyload alt="image-20240728214937098"></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><p><img src="/img/browser/work_process/image-20240728214937098.png" srcset="/img/loading.gif" lazyload alt="Javascript Execution Process"></p>
 <h2 id="compiler、interpreter、Just-In-Time-compiler"><a href="#compiler、interpreter、Just-In-Time-compiler" class="headerlink" title="compiler、interpreter、Just-In-Time compiler"></a>compiler、interpreter、Just-In-Time compiler</h2><p>V8解释器基于JIT（Justin Runtime）实现</p>
 <ul>
 <li>编译器：编译代码</li>
 <li>解释器：运行代码</li>
 <li>JIT 编译器【即时编译】：在运行代码时进行编译（将源代码编译成针对当前运行环境下的字节码，这是一种优化）</li>
 </ul>
-<img src="/img/browser/work_process/image-20240728215139594.png" srcset="/img/loading.gif" lazyload alt="image-20240728215139594" style="zoom:50%;" />
-
+<p><img src="/img/browser/work_process/image-20240728215139594.png" srcset="/img/loading.gif" lazyload alt="JIT Compiler Generate AST"></p>
 <h2 id="为什么不把js代码直接编译成机器码，而是有中间的字节码？"><a href="#为什么不把js代码直接编译成机器码，而是有中间的字节码？" class="headerlink" title="为什么不把js代码直接编译成机器码，而是有中间的字节码？"></a>为什么不把js代码直接编译成机器码，而是有中间的字节码？</h2><p><strong>因为浏览器的运行环境可能不同，比如操作系统、CPU硬件资源可能不同，为了实现跨平台的兼容通用，JS代码统一解析成字节码，字节码的解释器和编译器适配各个平台，最终编译成机器码，由浏览器调度硬件资源执行指令</strong></p>
 <h1 id="第六部分-创建可访问（无障碍）树"><a href="#第六部分-创建可访问（无障碍）树" class="headerlink" title="第六部分 创建可访问（无障碍）树"></a>第六部分 创建可访问（无障碍）树</h1><p>可访问性树是<strong>使用 DOM 构建</strong>的，稍后辅助设备将使用它来解析和解释我们正在访问的网页的内容。</p>
 <p>ACT 就像 DOM 的语义版本，每次 DOM 更新时它都会更新。</p>
@@ -413,10 +406,10 @@
 <ol>
 <li><strong>导航</strong></li>
 <li><strong>资源加载</strong></li>
-<li><strong>页面解析与渲染渲染</strong></li>
+<li><strong>页面解析与渲染</strong></li>
 </ol>
-<p><img src="/img/browser/work_process/image-20240830230949738-5030592.png" srcset="/img/loading.gif" lazyload alt="image-20240830230949738"></p>
-<p><img src="/img/browser/work_process/4558a342cf659187a3d5ecbf16b7ecc08b5bd8d16c383c7e1c027045ccbaf0c4899429eaebdfec82-5032507.png" srcset="/img/loading.gif" lazyload alt="p1.png"></p>
+<p><img src="/img/browser/work_process/image-20240830230949738-5030592.png" srcset="/img/loading.gif" lazyload alt="navigation and resources loading"></p>
+<p><img src="/img/browser/work_process/4558a342cf659187a3d5ecbf16b7ecc08b5bd8d16c383c7e1c027045ccbaf0c4899429eaebdfec82-5032507.png" srcset="/img/loading.gif" lazyload alt="website parse and render"></p>
 
                 
               </div>
